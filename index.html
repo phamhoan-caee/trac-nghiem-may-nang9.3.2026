@@ -31,25 +31,25 @@
             </div>
             <div class="md:w-2/3 p-8">
                 <div class="mb-6">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Trường CĐ Cơ điện nông nghiệp và môi trường!</h3>
-                    <p class="text-gray-500 text-sm">Khoa Máy Thi Công.</p>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">TRƯỜNG CĐ CƠ ĐIỆN NÔNG NGHIỆP VÀ MÔI TRƯỜNG!</h3>
+                    <p class="text-gray-500 text-sm">KHOA MÁY THI CÔNG</p>
                 </div>
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">Họ và Tên:</label>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">HỌ VÀ TÊN HỌC VIÊN:</label>
                         <input type="text" id="inputName" placeholder="Ví dụ: Nguyễn Văn A" 
                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition">
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">Khóa đào tạo:</label>
-                        <input type="text" id="inputClass" placeholder="Ví dụ: K24-XN01" 
+                        <label class="block text-sm font-bold text-gray-700 mb-1">KHÓA:</label>
+                        <input type="text" id="inputClass" placeholder="Ví dụ: 4.2026" 
                                class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition">
                     </div>
                     <button onclick="startExamNow()" class="w-full py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl shadow-lg transition transform hover:scale-[1.02] active:scale-95 mt-4">
                         BẮT ĐẦU THI NGAY <i class="fas fa-play ml-2"></i>
                     </button>
                 </div>
-                <p class="mt-6 text-center text-xs text-gray-400 font-medium">© 2024 TRUNG TÂM ĐÀO TẠO KỸ THUẬT CAEE</p>
+                <p class="mt-6 text-center text-xs text-gray-400 font-medium">© 2024 TRUNG TÂM ĐÀO TẠO CẦN TRỤC, MÁY NÂNG HÀNG - CAEE</p>
             </div>
         </div>
     </div>
@@ -58,11 +58,11 @@
     <header id="mainHeader" class="hidden bg-blue-800 text-white p-4 shadow-md flex justify-between items-center transition-all duration-500">
         <div class="flex items-center space-x-3">
             <i class="fas fa-truck-moving text-2xl"></i>
-            <h1 class="text-xl font-bold uppercase tracking-wider">Sát hạch Vận hành Xe nâng</h1>
+            <h1 class="text-xl font-bold uppercase tracking-wider">SÁT HẠCH LÝ THUYẾT MÁY NÂNG HÀNG - CAEE</h1>
         </div>
         <div class="flex items-center space-x-6">
             <div class="text-right border-r pr-6 border-blue-400">
-                <p class="text-[10px] uppercase opacity-70">Học viên - Khóa:</p>
+                <p class="text-[10px] uppercase opacity-70">HỌ VÀ TÊN HỌC VIÊN - KHÓA:</p>
                 <p class="font-bold leading-none"><span id="studentName">...</span> - <span id="studentClass" class="text-orange-300">...</span></p>
             </div>
             <div id="timerDisplay" class="bg-red-600 px-4 py-2 rounded-lg text-2xl font-mono font-bold shadow-inner border border-red-400">
@@ -279,7 +279,7 @@
             const className = document.getElementById('inputClass').value.trim();
 
             if (!name || !className) {
-                alert("Vui lòng nhập đầy đủ Họ tên và Khóa đào tạo!");
+                alert("Vui lòng nhập đầy đủ Họ tên học viên và Khóa!");
                 return;
             }
 
