@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SÁT HẠCH LÝ THUYẾT MÁY NÂNG HÀNG - CAEE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+        body { font-family: 'Roboto', sans-serif; background-color: #f0f2f5; }
+        .q-grid-item { transition: all 0.2s; cursor: pointer; }
+        .q-grid-item.active { border: 3px solid #f59e0b; background-color: #fef3c7; }
+        .q-grid-item.answered { background-color: #10b981; color: white; border-color: #059669; }
+        .option-card { transition: all 0.2s; border: 2px solid #e2e8f0; cursor: pointer; }
+        .option-card:hover { border-color: #3b82f6; background-color: #eff6ff; }
+        .option-card.selected { border-color: #2563eb; background-color: #dbeafe; box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2); }
+        .fade-in { animation: fadeIn 0.5s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body class="h-screen flex flex-col overflow-hidden">
+
+    <div id="loginScreen" class="fixed inset-0 z-[100] bg-blue-900 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-1/3 bg-blue-700 p-8 text-white flex flex-col justify-center items-center text-center">
+                <i class="fas fa-id-card text-5xl mb-4"></i>
+                <h2 class="text-xl font-bold uppercase tracking-tighter">Thông tin Học viên</h2>
+            </div>
+            <div class="md:w-2/3 p-8">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2 leading-tight">TRƯỜNG CĐ CƠ ĐIỆN NÔNG NGHIỆP VÀ MÔI TRƯỜNG</h3>
+                    <p class="text-blue-600 font-bold">KHOA MÁY THI CÔNG</p>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">HỌ VÀ TÊN HỌC VIÊN:</label>
+                        <input type="text" id="inputName" placeholder="Ví dụ: Nguyễn Văn A" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">KHÓA:</label>
+                        <input type="text" id="inputClass" placeholder="Ví dụ: 4.2026" class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition">
+                    </div>
+                    <button onclick="startExamNow()" class="w-full py-4 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl shadow-lg transition transform hover:scale-[1.02] active:scale-95 mt-4 uppercase">
+                        BẮT ĐẦU THI NGAY <i class="fas fa-play ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header id="mainHeader" class="hidden bg-blue-800 text-white p-4 shadow-md flex justify-between items-center z-50">
+        <div class="flex items-center space-x-3">
+            <i class="fas fa-truck-moving text-2xl"></i>
+            <h1 class="text-lg font-bold uppercase hidden md:block">SÁT HẠCH MÁY NÂNG HÀNG - CAEE</h1>
+        </div>
+        <div class="flex items-center space-x-4 md:space-x-6">
+            <div class="text-right border-r pr-4 border-blue-400">
+                <p class="text-[10px] uppercase opacity-70">Học viên:</p>
+                <p class="font-bold text-sm"><span id="studentName">...</span></p>
+            </div>
+            <div id="timerDisplay" class="bg-red-600 px-4 py-2 rounded-lg text-xl md:text-2xl font-mono font-bold shadow-inner border border-red-400">20:00</div>
+        </div>
+    </header>
+
+    <main id="mainContent" class="hidden flex-1 flex overflow-hidden">
+        <section class="flex-1 p-4 md:p-6 overflow-y-auto bg-gray-100">
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 md:p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <span id="questionTag" class="bg-blue-100 text-blue-700 px-4 py-1 rounded-full text-xs font-black uppercase">Lý thuyết</span>
+                    <span class="text-gray-500 font-bold italic">Câu <span id="currentQNum" class="text-blue-600 text-xl">1</span>/30</span>
+                </div>
+                <h2 id="questionText" class="text-xl md:text-2xl font-bold text-gray-800 mb-8 leading-snug"></h2>
+                <div id="imageWrapper" class="hidden mb-8 flex justify-center bg-gray-50 rounded-2xl p-4 border border-gray-200">
+                    <img id="questionImage" src="" class="max-h-64 rounded shadow-sm">
+                </div>
+                <div id="optionsList" class="grid grid-cols-1 gap-4"></div>
+                <div class="mt-12 pt-8 border-t flex justify-between">
+                    <button onclick="prevQuestion()" class="px-6 py-3 bg-white border-2 border-gray-200 hover:border-blue-500 rounded-xl font-bold transition uppercase text-xs">Trước</button>
+                    <button onclick="nextQuestion()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition uppercase shadow-md text-xs">Tiếp</button>
+                </div>
+            </div>
+        </section>
+
+        <aside class="w-20 md:w-72 bg-white border-l p-4 flex flex-col">
+            <h3 class="hidden md:block font-black text-gray-700 uppercase text-center text-xs mb-4">Sơ đồ câu hỏi</h3>
+            <div id="questionGrid" class="grid grid-cols-1 md:grid-cols-5 gap-2 overflow-y-auto pr-1 flex-1"></div>
+            <button onclick="confirmSubmit()" class="mt-4 w-full py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-xl transition uppercase text-sm">NỘP BÀI</button>
+        </aside>
+    </main>
+
+    <div id="resultModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-[200] p-4">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 text-center">
+            <div id="resultIcon" class="text-7xl mb-4"></div>
+            <h2 id="resultTitle" class="text-3xl font-black mb-2 uppercase"></h2>
+            <p id="resultScore" class="text-2xl text-blue-600 mb-8 font-bold"></p>
+            <button onclick="window.location.reload()" class="w-full py-4 bg-gray-800 text-white rounded-xl font-black uppercase">Thoát</button>
+        </div>
+    </div>
+
+    <script>
+        // NGÂN HÀNG 101 CÂU HỎI (Rút gọn để bạn dễ test, bạn có thể copy thêm vào đây)
+        const fullBank = [
+            { q: "Khi lên hoặc xuống cabin xe nâng, người lái xe cần thực hiện như thế nào cho đúng?", options: { A: "Nhảy nhanh lên cabin để tiết kiệm thời gian.", B: "Bám vô lăng để leo lên.", C: "Tay trái nắm tay vịn, tay phải bám vào tựa lưng ghế, bước từng bậc lên xuống.", D: "Đặt chân lên càng nâng để leo lên." }, correct: "C", image: "https://drive.google.com/uc?export=download&id=1eRUzZsJtgEcj0vohejao3ga3iWJRr_UP", group: "Kỹ thuật lái" },
+            { q: "Khoảng cách an toàn tối thiểu giữa xe nâng và người đi bộ trong kho là bao nhiêu?", options: { A: "0.5 mét", B: "1 mét", C: "Ít nhất 2 mét", D: "5 mét" }, correct: "C", group: "An toàn" },
+            { q: "Nếu tải trọng hàng che khuất tầm nhìn phía trước, người lái phải làm gì?", options: { A: "Rướn người ra ngoài quan sát.", B: "Lùi xe khi di chuyển để quan sát thoáng hơn.", C: "Nhờ người ngồi lên hàng chỉ đường.", D: "Bấm còi liên tục và chạy nhanh." }, correct: "B", group: "Kỹ thuật lái" },
+            { q: "Khi dừng xe nâng để đỗ, người lái cần thực hiện các thao tác nào?", options: { A: "Tắt máy và rời cabin ngay.", B: "Hạ càng sát đất, nghiêng khung về phía trước, kéo phanh tay, về số N, tắt máy.", C: "Kéo phanh tay và để càng nâng cao 50cm.", D: "Để nguyên số và tắt máy." }, correct: "B", group: "Vận hành" },
+            // THÊM TIẾP CÁC CÂU CỦA BẠN VÀO ĐÂY...
+        ];
+
+        let questions = []; // Chứa 30 câu ngẫu nhiên
+        let userAnswers = new Array(30).fill(null);
+        let currentIdx = 0;
+        let timeLeft = 1200; // 20 phút
+        let timerInterval;
+
+        function startExamNow() {
+            const name = document.getElementById('inputName').value.trim();
+            const khoahoc = document.getElementById('inputClass').value.trim();
+
+            if (!name || !khoahoc) {
+                alert("Vui lòng nhập đầy đủ Họ tên và Khóa học!");
+                return;
+            }
+
+            // Hiển thị thông tin
+            document.getElementById('studentName').innerText = name;
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('mainHeader').classList.remove('hidden');
+            document.getElementById('mainContent').classList.remove('hidden');
+            document.getElementById('mainContent').classList.add('flex');
+
+            // Lấy 30 câu ngẫu nhiên từ ngân hàng 101 câu
+            questions = [...fullBank].sort(() => 0.5 - Math.random()).slice(0, 30);
+            
+            initGrid();
+            renderQuestion();
+            startTimer();
+        }
+
+        function initGrid() {
+            const grid = document.getElementById('questionGrid');
+            grid.innerHTML = '';
+            for(let i=0; i<30; i++) {
+                const btn = document.createElement('div');
+                btn.className = 'q-grid-item h-10 flex items-center justify-center border-2 rounded-lg font-bold text-sm';
+                btn.id = `grid-item-${i}`;
+                btn.innerText = i + 1;
+                btn.onclick = () => jumpTo(i);
+                grid.appendChild(btn);
+            }
+        }
+
+        function renderQuestion() {
+            const q = questions[currentIdx];
+            document.getElementById('currentQNum').innerText = currentIdx + 1;
+            document.getElementById('questionText').innerText = q.q;
+            document.getElementById('questionTag').innerText = q.group || "Lý thuyết";
+
+            // Xử lý ảnh
+            const imgWrap = document.getElementById('imageWrapper');
+            if (q.image) {
+                document.getElementById('questionImage').src = q.image;
+                imgWrap.classList.remove('hidden');
+            } else {
+                imgWrap.classList.add('hidden');
+            }
+
+            // Xử lý đáp án
+            const optList = document.getElementById('optionsList');
+            optList.innerHTML = '';
+            for (let key in q.options) {
+                const div = document.createElement('div');
+                div.className = `option-card p-4 rounded-xl font-medium ${userAnswers[currentIdx] === key ? 'selected' : ''}`;
+                div.innerHTML = `<b class="mr-3 text-blue-600">${key}.</b> ${q.options[key]}`;
+                div.onclick = () => selectOption(key);
+                optList.appendChild(div);
+            }
+
+            // Cập nhật Grid
+            document.querySelectorAll('.q-grid-item').forEach(el => el.classList.remove('active'));
+            document.getElementById(`grid-item-${currentIdx}`).classList.add('active');
+        }
+
+        function selectOption(key) {
+            userAnswers[currentIdx] = key;
+            document.getElementById(`grid-item-${currentIdx}`).classList.add('answered');
+            renderQuestion();
+        }
+
+        function nextQuestion() { if(currentIdx < 29) { currentIdx++; renderQuestion(); } }
+        function prevQuestion() { if(currentIdx > 0) { currentIdx--; renderQuestion(); } }
+        function jumpTo(i) { currentIdx = i; renderQuestion(); }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                const m = Math.floor(timeLeft / 60);
+                const s = timeLeft % 60;
+                document.getElementById('timerDisplay').innerText = `${m}:${s < 10 ? '0' : ''}${s}`;
+                if (timeLeft <= 0) confirmSubmit();
+            }, 1000);
+        }
+
+        function confirmSubmit() {
+            if (timeLeft > 0 && !confirm("Bạn có chắc chắn muốn nộp bài?")) return;
+            
+            clearInterval(timerInterval);
+            let score = 0;
+            questions.forEach((q, i) => {
+                if (userAnswers[i] === q.correct) score++;
+            });
+
+            const pass = score >= 24; // Giả sử 24/30 là đạt
+            document.getElementById('resultModal').classList.remove('hidden');
+            document.getElementById('resultIcon').innerText = pass ? "🏆" : "⚠️";
+            document.getElementById('resultTitle').innerText = pass ? "ĐẠT YÊU CẦU" : "KHÔNG ĐẠT";
+            document.getElementById('resultScore').innerText = `Số câu đúng: ${score} / 30`;
+        }
+    </script>
+</body>
+</html>
