@@ -1,54 +1,50 @@
-// 1. Cấu hình - Giữ nguyên link của thầy
+// 1. Cấu hình - Link Web App từ Google Sheets của thầy
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzRe6p2BHUlBsFM95U-3OCXx4CvmJ0-An25SMnTLhcsAUJhy4RBkNNUEZEwLsp8mx72/exec";
+
 let allQuestions = [];
 let selectedQuestions = [];
-let userAnswers = {}; // Lưu trữ đáp án học viên đã chọn
-let currentQuestionIndex = 0; // Chỉ mục câu hỏi hiện tại
+let userAnswers = {}; 
+let currentQuestionIndex = 0; 
 let timeLeft = 1200; 
 let timerInterval;
 
-// 2. Hàm bắt đầu thi
-async function submitQuiz() {
-    clearInterval(timerInterval);
-    let score = 0;
+// 2. Hàm Bắt đầu thi (Thầy cần hàm này để ứng dụng chạy)
+async function startQuiz() {
+    const name = document.getElementById('studentName').value.trim();
+    const id = document.getElementById('studentID').value.trim();
 
-    selectedQuestions.forEach((q, i) => {
-        if (userAnswers[i] === q["Đáp án đúng"]) score++;
-    });
+    if (!name || !id) {
+        alert("Vui lòng nhập đủ Họ tên và Khóa!");
+        return;
+    }
 
-    const status = score >= 24 ? "ĐẠT" : "KHÔNG ĐẠT";
-    const payload = {
-        name: document.getElementById('studentName').value,
-        id: document.getElementById('studentID').value,
-        score: score,
-        status: status
-    };
-
-    document.getElementById('quiz-screen').innerHTML = `<div class="text-center p-5"><h4>Đang lưu điểm về hệ thống CAEE...</h4></div>`;
+    // Hiệu ứng chờ tải đề
+    document.getElementById('start-screen').style.display = 'none';
+    document.getElementById('quiz-screen').style.display = 'block';
+    document.getElementById('quiz-content').innerHTML = "<p class='text-center p-5'>Đang lấy đề thi từ hệ thống CAEE...</p>";
 
     try {
-        // ĐÃ THÊM DẤU ' ' VÀ MODE NO-CORS
-        await fetch('https://script.google.com/macros/s/AKfycbznB-F1J4quO183AYoZC7ST0p3ZouP_-tLuEH4n1RvN-TqhI87MA38vVysD81rZ3LY0/exec', { 
-            method: "POST", 
-            mode: "no-cors",
-            body: JSON.stringify(payload) 
-        });
-        alert(`Kết quả: ${score}/30 câu - ${status}`);
-    } catch (e) {
-        alert("Lỗi mạng, hãy chụp màn hình kết quả!");
+        const response = await fetch(WEB_APP_URL);
+        allQuestions = await response.json();
+        
+        // Lấy ngẫu nhiên 30 câu
+        selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 30);
+
+        showQuestion(0);
+        startTimer();
+    } catch (error) {
+        alert("Lỗi kết nối! Thầy kiểm tra lại quyền truy cập của Google Sheets nhé.");
+        location.reload();
     }
-    location.reload();
 }
 
-// 3. Hàm hiển thị câu hỏi (Chỉ hiện 1 câu và có nút bấm)
+// 3. Hàm hiển thị câu hỏi (Giữ nguyên giao diện đẹp của thầy)
 function showQuestion(index) {
     currentQuestionIndex = index;
     const q = selectedQuestions[index];
     const container = document.getElementById('quiz-content');
     
     const imageHtml = q["HINHANH"] ? `<div class="text-center mb-3"><img src="${q["HINHANH"]}" class="img-fluid rounded border shadow-sm" style="max-height:250px;"></div>` : "";
-    
-    // Kiểm tra xem học viên đã chọn đáp án cho câu này chưa để hiển thị lại
     const isSelected = (opt) => userAnswers[index] === opt ? "checked" : "";
 
     container.innerHTML = `
@@ -57,10 +53,8 @@ function showQuestion(index) {
                 <span class="badge bg-primary px-3 py-2">Câu hỏi ${index + 1} / 30</span>
                 <span class="text-muted small">Mã đề: CAEE-2026</span>
             </div>
-            
             <h5 class="mb-4 text-dark font-weight-bold">${q["Nội dung câu hỏi"]}</h5>
             ${imageHtml}
-            
             <div class="options-list mt-3">
                 ${['A', 'B', 'C', 'D'].map(opt => `
                     <div class="form-check mb-3 p-2 border rounded hover-shadow">
@@ -72,61 +66,39 @@ function showQuestion(index) {
                     </div>
                 `).join('')}
             </div>
-
             <div class="navigation-btns d-flex justify-content-between mt-5">
-                <button class="btn btn-outline-secondary px-4" onclick="prevQuestion()" ${index === 0 ? 'disabled' : ''}>
-                    <i class="fas fa-arrow-left mr-1"></i> Câu trước
-                </button>
-                
+                <button class="btn btn-outline-secondary px-4" onclick="prevQuestion()" ${index === 0 ? 'disabled' : ''}>Trước</button>
                 ${index === 29 ? 
-                    `<button class="btn btn-success px-4" onclick="confirmSubmit()">Kết thúc & Nộp bài</button>` : 
-                    `<button class="btn btn-primary px-4" onclick="nextQuestion()">Câu tiếp theo <i class="fas fa-arrow-right ml-1"></i></button>`
+                    `<button class="btn btn-success px-4" onclick="confirmSubmit()">Nộp bài</button>` : 
+                    `<button class="btn btn-primary px-4" onclick="nextQuestion()">Tiếp theo</button>`
                 }
             </div>
-        </div>
-    `;
+        </div>`;
 }
 
-// 4. Hàm lưu đáp án (CHỈ lưu dữ liệu, KHÔNG tự nhảy câu)
-function saveAnswer(index, value) {
-    userAnswers[index] = value;
-    console.log("Đã chọn câu " + (index + 1) + ": " + value);
-    // Ở đây máy sẽ đứng yên để học viên có thể đọc lại hoặc đổi ý.
-}
+// 4. Các hàm xử lý
+function saveAnswer(index, value) { userAnswers[index] = value; }
+function nextQuestion() { if (currentQuestionIndex < 29) showQuestion(currentQuestionIndex + 1); }
+function prevQuestion() { if (currentQuestionIndex > 0) showQuestion(currentQuestionIndex - 1); }
 
-function nextQuestion() {
-    if (currentQuestionIndex < 29) {
-        showQuestion(currentQuestionIndex + 1);
-    }
-}
-
-function prevQuestion() {
-    if (currentQuestionIndex > 0) {
-        showQuestion(currentQuestionIndex - 1);
-    }
-}
-
-// 5. Các hàm bổ trợ (Timer, Submit)
 function startTimer() {
     timerInterval = setInterval(() => {
         timeLeft--;
         let min = Math.floor(timeLeft / 60);
         let sec = timeLeft % 60;
-        document.getElementById('timer').innerText = `Thời gian còn lại: ${min}:${sec < 10 ? '0' : ''}${sec}`;
+        document.getElementById('timer').innerText = `Thời gian: ${min}:${sec < 10 ? '0' : ''}${sec}`;
         if (timeLeft <= 0) submitQuiz();
     }, 1000);
 }
 
 function confirmSubmit() {
-    let unanswerCount = 30 - Object.keys(userAnswers).length;
-    let msg = unanswerCount > 0 ? `Bạn còn ${unanswerCount} câu chưa làm. Vẫn nộp bài chứ?` : "Bạn có chắc chắn muốn nộp bài?";
-    if (confirm(msg)) submitQuiz();
+    if (confirm("Học viên chắc chắn muốn nộp bài?")) submitQuiz();
 }
 
+// 5. Chốt nộp bài gửi về Sheets (Đã sửa lỗi bảo mật và link)
 async function submitQuiz() {
     clearInterval(timerInterval);
     let score = 0;
-
     selectedQuestions.forEach((q, i) => {
         if (userAnswers[i] === q["Đáp án đúng"]) score++;
     });
@@ -139,11 +111,18 @@ async function submitQuiz() {
         status: status
     };
 
-    document.getElementById('quiz-screen').innerHTML = `<div class="text-center p-5"><h4>Đang lưu điểm của thầy...</h4></div>`;
+    document.getElementById('quiz-screen').innerHTML = `<div class="text-center p-5"><h4>Đang lưu điểm của thầy về Excel...</h4></div>`;
 
-   await fetch(WEB_APP_URL, { 
+    try {
+        await fetch(WEB_APP_URL, { 
             method: "POST", 
             mode: "no-cors",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload) 
         });
+        alert(`Kết quả: ${score}/30 câu - ${status}`);
+    } catch (e) {
+        alert("Có lỗi gửi điểm, hãy chụp màn hình kết quả!");
+    }
+    location.reload();
+}
