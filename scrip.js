@@ -142,7 +142,7 @@ async function submitQuiz() {
     document.getElementById('quiz-screen').innerHTML = `<div class="text-center p-5"><h4>Đang lưu điểm của thầy...</h4></div>`;
 
     try {
-        await fetch(WEB_APP_URL, { method: "POST", body: JSON.stringify(payload) });
+        await fetch(https://script.google.com/macros/s/AKfycbznB-F1J4quO183AYoZC7ST0p3ZouP_-tLuEH4n1RvN-TqhI87MA38vVysD81rZ3LY0/exec, { method: "POST", body: JSON.stringify(payload) });
         alert(`Kết quả: ${score}/30 câu - ${status}`);
     } catch (e) {
         alert("Lỗi mạng, hãy chụp màn hình kết quả!");
