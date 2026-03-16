@@ -3,7 +3,7 @@ const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwxGySySYeE0wsg-41K
 
 let allQuestions = [];
 let selectedQuestions = [];
-let userAnswers = {}; // Lưu trữ đáp án
+let userAnswers = {}; // Lưu trữ đáp án học viên chọn
 let currentIdx = 0;   // Chỉ số câu hỏi hiện tại
 let timeLeft = 1200; 
 let timerInterval;
@@ -46,27 +46,27 @@ function showQuestion(index) {
     const q = selectedQuestions[index];
     const container = document.getElementById('quiz-content');
     
-    const imageHtml = q["HINHANH"] ? `<div class="text-center"><img src="${q["HINHANH"]}" class="img-fluid rounded border mb-3 shadow-sm" style="max-height:300px;"></div>` : "";
+    const imageHtml = q["HINHANH"] ? `<div class="text-center"><img src="${q["HINHANH"]}" class="img-fluid rounded border mb-3 shadow-sm" style="max-height:250px;"></div>` : "";
     
-    // Kiểm tra đáp án đã chọn trước đó
+    // Kiểm tra đáp án đã chọn trước đó để tích lại
     const getChecked = (opt) => userAnswers[index] === opt ? "checked" : "";
 
     container.innerHTML = `
-        <div class="question-box shadow-sm p-4 bg-white rounded animate__animated animate__fadeIn">
+        <div class="question-box p-4 bg-white rounded shadow-sm">
             <div class="d-flex justify-content-between mb-3 border-bottom pb-2">
                 <span class="badge bg-primary px-3 py-2">Câu ${index + 1} / 30</span>
-                <span class="text-muted small">ID: CAEE-${index + 1}</span>
+                <span class="text-muted small">Mã đề: CAEE-2026</span>
             </div>
             
             <h5 class="text-dark mb-4">${q["Nội dung câu hỏi"]}</h5>
             ${imageHtml}
             
-            <div class="options-group mt-3">
+            <div class="options-group">
                 ${['A', 'B', 'C', 'D'].map(opt => `
-                    <div class="form-check mb-3 p-2 border rounded option-item ${userAnswers[index] === opt ? 'bg-light border-primary' : ''}">
+                    <div class="form-check mb-3 p-2 border rounded ${userAnswers[index] === opt ? 'bg-light border-primary' : ''}">
                         <input class="form-check-input ms-1" type="radio" name="quizOption" id="opt${opt}" value="${opt}" 
                             ${getChecked(opt)} onchange="saveAnswer(${index}, '${opt}')">
-                        <label class="form-check-label w-100 ps-4" for="opt${opt}">
+                        <label class="form-check-label w-100 ps-4 cursor-pointer" for="opt${opt}">
                             <strong>${opt}.</strong> ${q["Đáp án " + opt]}
                         </label>
                     </div>
@@ -86,11 +86,10 @@ function showQuestion(index) {
         </div>`;
 }
 
-// 4. Lưu đáp án (Tuyệt đối không chuyển câu)
+// 4. Lưu đáp án (CHỈ LƯU - TUYỆT ĐỐI KHÔNG CHUYỂN CÂU)
 function saveAnswer(index, value) {
     userAnswers[index] = value;
-    // Thầy để ý: Ở đây không có lệnh showQuestion(index + 1) 
-    // nên học viên chọn xong máy sẽ đứng im tại chỗ.
+    // Thầy lưu ý: Chỗ này không gọi hàm showQuestion nữa nên máy sẽ đứng im tại chỗ.
 }
 
 function nextQuestion() {
@@ -101,7 +100,7 @@ function prevQuestion() {
     if (currentIdx > 0) showQuestion(currentIdx - 1);
 }
 
-// 5. Đồng hồ & Gửi kết quả (Giữ nguyên logic của thầy)
+// 5. Đồng hồ & Gửi kết quả
 function startTimer() {
     timerInterval = setInterval(() => {
         timeLeft--;
@@ -113,10 +112,8 @@ function startTimer() {
 }
 
 function confirmSubmit() {
-    const totalAnswered = Object.keys(userAnswers).length;
-    if (confirm(`Thầy nhắc học viên: Bạn đã làm ${totalAnswered}/30 câu. Chắc chắn muốn nộp bài?`)) {
-        submitQuiz();
-    }
+    const answered = Object.keys(userAnswers).length;
+    if(confirm(`Bạn đã làm ${answered}/30 câu. Chắc chắn muốn nộp bài?`)) submitQuiz();
 }
 
 async function submitQuiz() {
@@ -138,17 +135,18 @@ async function submitQuiz() {
     document.getElementById('quiz-screen').innerHTML = `
         <div class="text-center p-5">
             <div class="spinner-grow text-success" role="status"></div>
-            <h3>Đang gửi kết quả về bảng điểm...</h3>
+            <h3>Đang gửi kết quả về bảng điểm CAEE...</h3>
         </div>`;
 
     try {
         await fetch(WEB_APP_URL, {
             method: "POST",
+            mode: "no-cors",
             body: JSON.stringify(payload)
         });
-        alert(`Kết quả của bạn: ${score}/30 câu. Xếp loại: ${status}`);
+        alert(`Chúc mừng! Bạn đúng ${score}/30 câu. Kết quả: ${status}`);
     } catch (e) {
-        alert("Lưu điểm gặp lỗi mạng, thầy nhắc học viên chụp màn hình kết quả!");
+        alert("Lỗi mạng! Thầy nhắc học viên chụp màn hình kết quả này!");
     }
     location.reload();
 }
