@@ -1,6 +1,5 @@
 // 1. Cấu hình - Giữ nguyên link của thầy
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwxGySySYeE0wsg-41K5lTQUYgL_beTxmCGagDfwQO1AUxLs_l8K4iGMgz-jKE9sxc/exec";
-
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzRe6p2BHUlBsFM95U-3OCXx4CvmJ0-An25SMnTLhcsAUJhy4RBkNNUEZEwLsp8mx72/exec";
 let allQuestions = [];
 let selectedQuestions = [];
 let userAnswers = {}; // Lưu trữ đáp án học viên đã chọn
@@ -9,35 +8,36 @@ let timeLeft = 1200;
 let timerInterval;
 
 // 2. Hàm bắt đầu thi
-async function startQuiz() {
-    const name = document.getElementById('studentName').value.trim();
-    const id = document.getElementById('studentID').value.trim();
+async function submitQuiz() {
+    clearInterval(timerInterval);
+    let score = 0;
 
-    if (!name || !id) {
-        alert("Thầy nhắc học viên nhập đủ Họ tên và Mã số nhé!");
-        return;
-    }
+    selectedQuestions.forEach((q, i) => {
+        if (userAnswers[i] === q["Đáp án đúng"]) score++;
+    });
 
-    document.getElementById('start-screen').innerHTML = `
-        <div class="card-body text-center">
-            <div class="spinner-border text-primary" role="status"></div>
-            <p class="mt-2">Đang tải đề thi từ CAEE...</p>
-        </div>`;
+    const status = score >= 24 ? "ĐẠT" : "KHÔNG ĐẠT";
+    const payload = {
+        name: document.getElementById('studentName').value,
+        id: document.getElementById('studentID').value,
+        score: score,
+        status: status
+    };
+
+    document.getElementById('quiz-screen').innerHTML = `<div class="text-center p-5"><h4>Đang lưu điểm về hệ thống CAEE...</h4></div>`;
 
     try {
-        const response = await fetch(WEB_APP_URL);
-        allQuestions = await response.json();
-        selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 30);
-
-        document.getElementById('start-screen').style.display = 'none';
-        document.getElementById('quiz-screen').style.display = 'block';
-
-        showQuestion(0); // Hiển thị câu đầu tiên
-        startTimer();
-    } catch (error) {
-        alert("Lỗi kết nối hệ thống!");
-        location.reload();
+        // ĐÃ THÊM DẤU ' ' VÀ MODE NO-CORS
+        await fetch('https://script.google.com/macros/s/AKfycbznB-F1J4quO183AYoZC7ST0p3ZouP_-tLuEH4n1RvN-TqhI87MA38vVysD81rZ3LY0/exec', { 
+            method: "POST", 
+            mode: "no-cors",
+            body: JSON.stringify(payload) 
+        });
+        alert(`Kết quả: ${score}/30 câu - ${status}`);
+    } catch (e) {
+        alert("Lỗi mạng, hãy chụp màn hình kết quả!");
     }
+    location.reload();
 }
 
 // 3. Hàm hiển thị câu hỏi (Chỉ hiện 1 câu và có nút bấm)
@@ -141,11 +141,9 @@ async function submitQuiz() {
 
     document.getElementById('quiz-screen').innerHTML = `<div class="text-center p-5"><h4>Đang lưu điểm của thầy...</h4></div>`;
 
-    try {
-        await fetch(https://script.google.com/macros/s/AKfycbznB-F1J4quO183AYoZC7ST0p3ZouP_-tLuEH4n1RvN-TqhI87MA38vVysD81rZ3LY0/exec, { method: "POST", body: JSON.stringify(payload) });
-        alert(`Kết quả: ${score}/30 câu - ${status}`);
-    } catch (e) {
-        alert("Lỗi mạng, hãy chụp màn hình kết quả!");
-    }
-    location.reload();
-}
+   await fetch(WEB_APP_URL, { 
+            method: "POST", 
+            mode: "no-cors",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload) 
+        });
