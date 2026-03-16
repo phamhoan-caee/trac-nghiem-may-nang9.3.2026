@@ -18,21 +18,18 @@ async function startQuiz() {
         return;
     }
 
-    // Hiệu ứng chờ tải đề
     document.getElementById('start-screen').style.display = 'none';
     document.getElementById('quiz-screen').style.display = 'block';
-    // Hiển thị tên học viên lên góc phải nếu có chỗ
+    
     const displayUser = document.querySelector('.HOCVIEN_NAME');
     if(displayUser) displayUser.innerText = name;
 
     try {
         const response = await fetch(WEB_APP_URL);
         allQuestions = await response.json();
-        
-        // Lấy ngẫu nhiên 30 câu từ ngân hàng
         selectedQuestions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 30);
 
-        renderSitemap(); // Vẽ sơ đồ câu hỏi bên phải
+        renderSitemap(); 
         showQuestion(0);
         startTimer();
     } catch (error) {
@@ -41,19 +38,17 @@ async function startQuiz() {
     }
 }
 
-// 3. Hàm hiển thị câu hỏi (Chỉ hiện từng câu một)
+// 3. Hàm hiển thị câu hỏi (Đã tối ưu để ĐỨNG IM khi chọn)
 function showQuestion(index) {
     currentQuestionIndex = index;
     const q = selectedQuestions[index];
     const container = document.getElementById('quiz-content');
     
     const imageHtml = q["HINHANH"] ? `<div class="text-center mb-3"><img src="${q["HINHANH"]}" class="img-fluid rounded border shadow-sm" style="max-height:250px;"></div>` : "";
-    
-    // Kiểm tra xem đã chọn đáp án chưa để tích lại
     const isSelected = (opt) => userAnswers[index] === opt ? "checked" : "";
 
     container.innerHTML = `
-        <div class="question-page p-3 bg-white rounded shadow-sm fade-in">
+        <div class="question-page p-3 bg-white rounded shadow-sm">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <span class="badge bg-primary px-3 py-2">Câu hỏi ${index + 1} / 30</span>
                 <span class="text-muted small">Mã đề: CAEE-2026</span>
@@ -67,7 +62,7 @@ function showQuestion(index) {
                     <div class="form-check mb-3 p-2 border rounded hover-shadow ${userAnswers[index] === opt ? 'bg-blue-50 border-primary' : ''}">
                         <input class="form-check-input ms-1" type="radio" name="quizOption" id="opt${opt}" value="${opt}" 
                             ${isSelected(opt)} 
-                            onclick="saveAnswerOnly(${index}, '${opt}')"> 
+                            onclick="saveAnswerOnly(event, ${index}, '${opt}')"> 
                         <label class="form-check-label w-100 ps-4 cursor-pointer" for="opt${opt}">
                             <strong>${opt}.</strong> ${q["Đáp án " + opt]}
                         </label>
@@ -90,31 +85,46 @@ function showQuestion(index) {
     updateActiveGrid(index);
 }
 
-// 4. Hàm lưu đáp án (Đã bỏ tự động chuyển câu)
-function saveAnswerOnly(index, value) {
+// 4. Hàm lưu đáp án (ĐÃ KHÓA CỨNG - KHÔNG CHUYỂN CÂU)
+function saveAnswerOnly(event, index, value) {
+    // Ngăn chặn các sự kiện lạ gây nhảy trang
+    if(event) event.stopPropagation();
+    
     userAnswers[index] = value;
-    // Cập nhật màu xanh cho sơ đồ câu hỏi ngay khi chọn
+    
+    // Chỉ cập nhật màu sắc giao diện tại chỗ
     const gridItem = document.getElementById(`grid-item-${index}`);
     if (gridItem) gridItem.classList.add('answered');
+    
+    // Vẽ lại khung để hiện màu xanh highlight mà không cuộn trang
+    const options = document.querySelectorAll('.form-check');
+    options.forEach(opt => opt.classList.remove('bg-blue-50', 'border-primary'));
+    event.currentTarget.closest('.form-check').classList.add('bg-blue-50', 'border-primary');
 }
 
 function nextQuestion() {
-    if (currentQuestionIndex < 29) showQuestion(currentQuestionIndex + 1);
+    if (currentQuestionIndex < 29) {
+        showQuestion(currentQuestionIndex + 1);
+        document.getElementById('mainScrollArea').scrollTop = 0; // Cuộn lên đầu câu mới
+    }
 }
 
 function prevQuestion() {
-    if (currentQuestionIndex > 0) showQuestion(currentQuestionIndex - 1);
+    if (currentQuestionIndex > 0) {
+        showQuestion(currentQuestionIndex - 1);
+        document.getElementById('mainScrollArea').scrollTop = 0;
+    }
 }
 
-// 5. Sơ đồ câu hỏi bên phải
+// 5. Sơ đồ câu hỏi
 function renderSitemap() {
-    const grid = document.getElementById('questionGrid'); // Đảm bảo HTML có ID này
+    const grid = document.getElementById('questionGrid');
     if(!grid) return;
     grid.innerHTML = '';
     for(let i=0; i<30; i++) {
         const item = document.createElement('div');
         item.id = `grid-item-${i}`;
-        item.className = 'q-grid-item'; // Class CSS thầy đã có
+        item.className = 'q-grid-item' + (userAnswers[i] ? ' answered' : ''); 
         item.innerText = i + 1;
         item.onclick = () => showQuestion(i);
         grid.appendChild(item);
@@ -154,7 +164,7 @@ async function submitQuiz() {
     const status = score >= 24 ? "ĐẠT" : "KHÔNG ĐẠT";
     const payload = {
         name: document.getElementById('studentName').value,
-        className: document.getElementById('studentID').value, // Khớp với Apps Script
+        className: document.getElementById('studentID').value,
         score: score,
         result: status
     };
@@ -170,7 +180,7 @@ async function submitQuiz() {
         });
         alert(`KẾT QUẢ: ${score}/30 câu - ${status}`);
     } catch (e) {
-        alert("Lỗi mạng! Bạn hãy chụp màn hình kết quả này và báo cho thầy Hoàn.");
+        alert("Lỗi mạng! Thầy nhắc học viên chụp màn hình kết quả.");
     }
     location.reload();
 }
