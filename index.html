@@ -21,12 +21,14 @@
         .option-card:active { transform: scale(0.98); }
         .option-card.selected { border-color: #2563eb; background-color: #dbeafe; box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1); }
         
+        /* Custom scrollbar cho vùng câu hỏi */
         #mainScrollArea::-webkit-scrollbar { width: 4px; }
         #mainScrollArea::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeIn 0.4s ease-out; }
 
+        /* Responsive adjustments */
         @media (max-width: 768px) {
             #mainContent { flex-direction: column; overflow-y: auto; }
             aside { width: 100% !important; border-left: none; border-top: 1px solid #e2e8f0; }
@@ -38,6 +40,7 @@
 </head>
 <body class="h-screen flex flex-col overflow-hidden">
 
+    <!-- Màn hình Đăng ký (Login Screen) -->
     <div id="loginScreen" class="fixed inset-0 z-[100] bg-blue-900 flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden flex flex-col md:flex-row">
             <div class="md:w-1/3 bg-blue-700 p-6 text-white flex flex-col justify-center items-center text-center">
@@ -69,6 +72,7 @@
         </div>
     </div>
 
+    <!-- Header -->
     <header id="mainHeader" class="hidden bg-blue-800 text-white p-3 md:p-4 shadow-md flex justify-between items-center z-50">
         <div class="flex items-center space-x-2">
             <i class="fas fa-truck-moving text-xl md:text-2xl text-orange-400"></i>
@@ -85,18 +89,29 @@
         </div>
     </header>
 
+    <!-- Main Content -->
     <main id="mainContent" class="hidden flex-1 flex overflow-hidden">
+        
+        <!-- Question Area -->
         <section id="mainScrollArea" class="flex-1 p-3 md:p-6 overflow-y-auto bg-gray-100 scroll-smooth">
             <div id="questionContainer" class="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm p-5 md:p-8 fade-in">
                 <div class="flex justify-between items-center mb-4 md:mb-6">
                     <span id="questionTag" class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">Lý thuyết</span>
                     <span class="text-gray-400 font-bold text-sm">Câu <span id="currentQNum" class="text-blue-600 text-lg">1</span>/30</span>
                 </div>
-                <h2 id="questionText" class="text-lg md:text-2xl font-bold text-gray-800 mb-6 leading-tight">Đang tải câu hỏi...</h2>
+
+                <h2 id="questionText" class="text-lg md:text-2xl font-bold text-gray-800 mb-6 leading-tight">
+                    Đang tải câu hỏi...
+                </h2>
+
                 <div id="imageWrapper" class="hidden mb-6 flex justify-center bg-gray-50 rounded-2xl p-4 border border-gray-200">
                     <img id="questionImage" src="" alt="Minh họa" class="max-h-48 md:max-h-72 rounded-lg shadow-sm">
                 </div>
-                <div id="optionsList" class="grid grid-cols-1 gap-3 md:gap-4"></div>
+
+                <div id="optionsList" class="grid grid-cols-1 gap-3 md:gap-4">
+                    <!-- Options -->
+                </div>
+
                 <div class="mt-8 md:mt-12 pt-6 border-t flex justify-between items-center">
                     <button onclick="prevQuestion()" class="flex-1 md:flex-none mr-2 px-4 md:px-8 py-3 bg-white border-2 border-gray-100 text-gray-500 rounded-xl font-bold transition active:bg-gray-50 text-xs md:text-sm uppercase">
                         <i class="fas fa-chevron-left mr-1"></i> Trước
@@ -106,17 +121,21 @@
                     </button>
                 </div>
             </div>
+            
+            <!-- Mobile Grid Preview (Chỉ hiện trên mobile) -->
             <div class="md:hidden mt-6 p-2">
                 <p class="text-center text-[10px] font-black text-gray-400 uppercase mb-3">Danh sách câu hỏi</p>
                 <div id="mobileGrid" class="grid grid-cols-6 gap-2"></div>
             </div>
         </section>
 
+        <!-- Sidebar (Desktop) -->
         <aside class="hidden md:flex w-80 bg-white border-l shadow-xl p-6 flex-col">
             <div class="mb-6">
                 <h3 class="font-black text-gray-400 uppercase tracking-widest text-[10px] mb-4 text-center">Sơ đồ câu hỏi</h3>
                 <div id="questionGrid" class="grid grid-cols-5 gap-2"></div>
             </div>
+            
             <div class="mt-auto space-y-4">
                 <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
                     <p class="text-[10px] font-bold text-gray-400 uppercase mb-2">Trạng thái</p>
@@ -127,27 +146,37 @@
                         <div class="w-3 h-3 bg-amber-400 rounded-full mr-2"></div> Đang chọn
                     </div>
                 </div>
-                <button onclick="confirmSubmit()" class="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-xl shadow-lg transition active:scale-95 text-lg uppercase">Nộp bài</button>
+                <button onclick="confirmSubmit()" class="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-xl shadow-lg transition active:scale-95 text-lg uppercase">
+                    Nộp bài
+                </button>
             </div>
         </aside>
 
+        <!-- Nút Nộp bài Mobile -->
         <div class="md:hidden p-4 bg-white border-t">
-            <button onclick="confirmSubmit()" class="w-full py-4 bg-red-600 text-white font-black rounded-xl shadow-lg uppercase tracking-widest">Kết thúc bài thi</button>
+            <button onclick="confirmSubmit()" class="w-full py-4 bg-red-600 text-white font-black rounded-xl shadow-lg uppercase tracking-widest">
+                Kết thúc bài thi
+            </button>
         </div>
     </main>
 
+    <!-- Modal Kết quả -->
     <div id="resultModal" class="hidden fixed inset-0 bg-black/90 flex items-center justify-center z-[200] p-4 backdrop-blur-sm">
         <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-8 text-center">
             <div id="resultIcon" class="text-6xl mb-4"></div>
             <h2 id="resultTitle" class="text-2xl font-black mb-1 uppercase"></h2>
             <p id="resultScore" class="text-4xl font-mono font-black text-blue-600 mb-6"></p>
             <div id="resultDetails" class="bg-gray-50 rounded-2xl p-5 mb-6 text-left space-y-2 text-sm"></div>
-            <button onclick="window.location.reload()" class="w-full py-4 bg-gray-800 text-white rounded-xl font-black hover:bg-black transition shadow-lg uppercase">Thoát</button>
+            <button onclick="window.location.reload()" class="w-full py-4 bg-gray-800 text-white rounded-xl font-black hover:bg-black transition shadow-lg uppercase">
+                Thoát
+            </button>
         </div>
     </div>
 
     <script>
+        // Dữ liệu ngân hàng câu hỏi (Rút gọn để tập trung vào logic, bạn có thể copy lại full 101 câu vào đây)
         const questionBank = [
+            // 10 câu đầu của bạn
             { q: "Khi lên hoặc xuống cabin xe nâng, người lái xe cần thực hiện như thế nào cho đúng?", options: { A: "Nhảy nhanh lên cabin để tiết kiệm thời gian.", B: "Bám vô lăng để leo lên.", C: "Tay trái nắm tay vịn, tay phải bám vào tựa lưng ghế, bước từng bậc lên xuống.", D: "Đặt chân lên càng nâng để leo lên." }, correct: "C", image: "https://drive.google.com/uc?export=download&id=1eRUzZsJtgEcj0vohejao3ga3iWJRr_UP", group: "Kỹ thuật lái" },
             { q: "Mục đích chính của việc kiểm tra xe nâng trước mỗi ca làm việc là gì?", options: { A: "Để đảm bảo xe luôn sạch sẽ.", B: "Để phát hiện sớm các hư hỏng tiềm ẩn và đảm bảo an toàn.", C: "Để tính toán lượng nhiên liệu.", D: "Để báo cáo cho cấp trên." }, correct: "B", group: "An toàn" },
             { q: "Khoảng cách an toàn tối thiểu giữa xe nâng và người đi bộ trong kho là bao nhiêu?", options: { A: "0.5 mét", B: "1 mét", C: "Ít nhất 2 mét", D: "5 mét" }, correct: "C", group: "An toàn" },
@@ -158,6 +187,8 @@
             { q: "Trọng tâm của xe nâng thay đổi như thế nào khi nâng hàng lên cao?", options: { A: "Dịch chuyển ra phía trước và lên cao.", B: "Dịch chuyển ra phía sau.", C: "Không thay đổi.", D: "Hạ thấp xuống đất." }, correct: "A", group: "Lý thuyết cơ bản" },
             { q: "Khi xe nâng đang xuống dốc có tải, người lái nên di chuyển như thế nào?", options: { A: "Đi tiến.", B: "Đi lùi.", C: "Tắt máy thả trôi.", D: "Đi chéo dốc." }, correct: "B", group: "Kỹ thuật lái" },
             { q: "Sức nâng ghi trên biểu đồ tải trọng (Load Chart) là sức nâng tương ứng với:", options: { A: "Trọng tâm tải ở bất kỳ vị trí nào.", B: "Trọng tâm tải ở vị trí tiêu chuẩn.", C: "Chiều cao nâng tối đa.", D: "Chiều dài càng nâng." }, correct: "B", group: "Thông số kỹ thuật" },
+
+            // Bổ sung các câu từ 11 đến 101
             { q: "Khi đỗ xe nâng, người lái cần thực hiện thao tác nào sau đây?", options: { A: "Hạ càng sát đất, nghiêng trụ ra phía trước, kéo phanh tay.", B: "Nâng càng cao 1m để tránh người đi qua.", C: "Tắt máy và để số tiến.", D: "Chỉ cần kéo phanh tay là đủ." }, correct: "A", group: "Vận hành" },
             { q: "Áp suất lốp xe nâng quá thấp sẽ gây ra hậu quả gì?", options: { A: "Xe đi nhanh hơn.", B: "Mất ổn định và dễ lật xe khi nâng hàng.", C: "Tiết kiệm nhiên liệu.", D: "Tăng tuổi thọ lốp." }, correct: "B", group: "An toàn" },
             { q: "Sử dụng xe nâng để nâng người lên cao mà không có lồng bảo vệ được phép không?", options: { A: "Được phép nếu đứng vững.", B: "Tuyệt đối không được phép.", C: "Được phép nếu nâng thấp.", D: "Được phép nếu có người giữ ở dưới." }, correct: "B", group: "An toàn" },
@@ -175,7 +206,7 @@
             { q: "Tải trọng tâm (Load Center) thường được tính từ đâu?", options: { A: "Từ đầu càng nâng.", B: "Từ mặt tựa lưng của càng nâng.", C: "Từ bánh trước.", D: "Từ mặt đất." }, correct: "B", group: "Thông số kỹ thuật" },
             { q: "Pallet hỏng có được sử dụng để nâng hàng không?", options: { A: "Được nếu hàng nhẹ.", B: "Được nếu dùng dây buộc lại.", C: "Tuyệt đối không được sử dụng.", D: "Được nếu chỉ nâng thấp." }, correct: "C", group: "An toàn" },
             { q: "Khi người đi bộ cắt ngang đường xe nâng đang chạy, ưu tiên thuộc về ai?", options: { A: "Xe nâng.", B: "Người đi bộ.", C: "Ai đi nhanh hơn thì đi trước.", D: "Do hai bên tự thỏa thuận." }, correct: "B", group: "An toàn" },
-            { q: "Van an toàn trong hệ thống thủy lực có tác dụng gì?", options: { A: "Tăng tốc độ nâng.", B: "Tránh quá tải cho hệ thống.", C: "Giảm tiếng 0n.", D: "Tiết kiệm dầu." }, correct: "B", group: "Cấu tạo" },
+            { q: "Van an toàn trong hệ thống thủy lực có tác dụng gì?", options: { A: "Tăng tốc độ nâng.", B: "Tránh quá tải cho hệ thống.", C: "Giảm tiếng ồn.", D: "Tiết kiệm dầu." }, correct: "B", group: "Cấu tạo" },
             { q: "Nhiên liệu của xe nâng điện là gì?", options: { A: "Xăng.", B: "Dầu Diesel.", C: "Ắc quy (điện năng).", D: "Gas (LPG)." }, correct: "C", group: "Cấu tạo" },
             { q: "Trong kho hẹp, loại xe nâng nào thường được sử dụng?", options: { A: "Xe nâng container.", B: "Xe nâng Reach Truck (tầm cao).", C: "Xe nâng dầu 10 tấn.", D: "Xe cẩu." }, correct: "B", group: "Vận hành" },
             { q: "Trước khi khởi động xe nâng dầu, cần kiểm tra mức dầu nào?", options: { A: "Dầu động cơ.", B: "Dầu hộp số.", C: "Dầu thủy lực.", D: "Tất cả các loại trên." }, correct: "D", group: "Bảo dưỡng" },
@@ -280,6 +311,7 @@
         }
 
         function initExamData() {
+            // Lấy ngẫu nhiên 30 câu (ở đây demo 10 câu lặp lại cho đủ 30)
             let pool = [...questionBank];
             while(pool.length < 30) pool = pool.concat(questionBank);
             examQuestions = pool.sort(() => 0.5 - Math.random()).slice(0, 30);
@@ -336,12 +368,14 @@
                 }
             });
 
+            // Update Grids
             document.querySelectorAll('.q-grid-item').forEach(el => el.classList.remove('active'));
             const dItem = document.getElementById(`questionGrid-item-${idx}`);
             const mItem = document.getElementById(`mobileGrid-item-${idx}`);
             if(dItem) dItem.classList.add('active');
             if(mItem) mItem.classList.add('active');
 
+            // Scroll to top
             document.getElementById('mainScrollArea').scrollTop = 0;
         }
 
@@ -351,11 +385,10 @@
             const mItem = document.getElementById(`mobileGrid-item-${qIdx}`);
             if(dItem) dItem.classList.add('answered');
             if(mItem) mItem.classList.add('answered');
-            
-            // Cập nhật lại giao diện để hiển thị trạng thái đã chọn
             showQuestion(qIdx);
             
-            // Đã loại bỏ đoạn setTimeout tự động chuyển câu để học viên tự nhấn "Tiếp"
+            // Auto next after 300ms for better flow
+            setTimeout(() => { if(currentIdx < 29) showQuestion(currentIdx + 1); }, 300);
         }
 
         function nextQuestion() { if(currentIdx < 29) showQuestion(currentIdx + 1); }
