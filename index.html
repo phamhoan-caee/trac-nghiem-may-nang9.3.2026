@@ -8,25 +8,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
-        body { 
-            font-family: 'Roboto', sans-serif; 
-            background-color: #f0f2f5; 
-            -webkit-tap-highlight-color: transparent;
-        }
+        body { font-family: 'Roboto', sans-serif; background-color: #f0f2f5; -webkit-tap-highlight-color: transparent; }
         .q-grid-item { transition: all 0.2s; }
         .q-grid-item.active { border: 3px solid #f59e0b; background-color: #fef3c7; color: #b45309; }
         .q-grid-item.answered { background-color: #10b981; color: white; border-color: #059669; }
-        
         .option-card { touch-action: manipulation; }
         .option-card:active { transform: scale(0.98); }
         .option-card.selected { border-color: #2563eb; background-color: #dbeafe; box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1); }
-        
         #mainScrollArea::-webkit-scrollbar { width: 4px; }
         #mainScrollArea::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeIn 0.4s ease-out; }
-
         @media (max-width: 768px) {
             #mainContent { flex-direction: column; overflow-y: auto; }
             aside { width: 100% !important; border-left: none; border-top: 1px solid #e2e8f0; }
@@ -80,7 +72,7 @@
         <section id="mainScrollArea" class="flex-1 p-3 md:p-6 overflow-y-auto bg-gray-100 scroll-smooth">
             <div id="questionContainer" class="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm p-5 md:p-8 fade-in">
                 <div class="flex justify-between items-center mb-4 md:mb-6">
-                    <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider">Câu hỏi sát hạch</span>
+                    <span class="text-gray-400 font-bold text-sm">ĐỀ THI CHÍNH THỨC</span>
                     <span class="text-gray-400 font-bold text-sm">Câu <span id="currentQNum" class="text-blue-600 text-lg">1</span>/30</span>
                 </div>
 
@@ -94,14 +86,13 @@
 
                 <div class="mt-8 md:mt-12 pt-6 border-t flex justify-between items-center">
                     <button onclick="prevQuestion()" class="flex-1 md:flex-none mr-2 px-4 md:px-8 py-3 bg-white border-2 border-gray-100 text-gray-500 rounded-xl font-bold transition active:bg-gray-50 text-xs md:text-sm uppercase">
-                        <i class="fas fa-chevron-left mr-1"></i> Trước
+                        Trước
                     </button>
                     <button onclick="nextQuestion()" class="flex-1 md:flex-none ml-2 px-4 md:px-8 py-3 bg-blue-600 text-white rounded-xl font-bold transition active:bg-blue-700 shadow-md text-xs md:text-sm uppercase">
-                        Tiếp <i class="fas fa-chevron-right ml-1"></i>
+                        Tiếp
                     </button>
                 </div>
             </div>
-            
             <div class="md:hidden mt-6 p-2">
                 <div id="mobileGrid" class="grid grid-cols-6 gap-2"></div>
             </div>
@@ -129,7 +120,7 @@
     </div>
 
     <script>
-           const questionBank = [
+              const questionBank = [
     { q: "Khi lên hoặc xuống cabin xe nâng, người lái xe cần thực hiện như thế nào cho đúng?", options: { A: "Nhảy nhanh lên cabin để tiết kiệm thời gian.", B: "Bám vô lăng để leo lên.", C: "Tay trái nắm tay vịn, tay phải bám vào tựa lưng ghế, bước từng bậc lên xuống.", D: "Đặt chân lên càng nâng để leo lên." }, correct: "C", image: "https://drive.google.com/uc?export=download&id=1eRUzZsJtgEcj0vohejao3ga3iWJRr_UP" },
     { q: "Mục đích chính của việc kiểm tra xe nâng trước mỗi ca làm việc là gì?", options: { A: "Để đảm bảo xe luôn sạch sẽ.", B: "Để phát hiện sớm các hư hỏng tiềm ẩn và đảm bảo an toàn.", C: "Để tính toán lượng nhiên liệu.", D: "Để báo cáo cho cấp trên." }, correct: "B" },
     { q: "Khoảng cách an toàn tối thiểu giữa xe nâng và người đi bộ trong kho là bao nhiêu?", options: { A: "0.5 mét", B: "1 mét", C: "Ít nhất 2 mét", D: "5 mét" }, correct: "C" },
@@ -284,6 +275,9 @@
             const q = examQuestions[idx];
             document.getElementById('currentQNum').innerText = idx + 1;
             document.getElementById('questionText').innerText = q.q;
+            
+            // ĐÃ XÓA DÒNG HIỂN THỊ q.group TẠI ĐÂY
+
             const imgWrap = document.getElementById('imageWrapper');
             imgWrap.classList.toggle('hidden', !q.image);
             if(q.image) document.getElementById('questionImage').src = q.image;
@@ -315,8 +309,6 @@
             userAnswers[qIdx] = option;
             const items = [document.getElementById(`questionGrid-item-${qIdx}`), document.getElementById(`mobileGrid-item-${qIdx}`)];
             items.forEach(it => it && it.classList.add('answered'));
-            
-            // QUAN TRỌNG: Chỉ cập nhật giao diện câu hiện tại, KHÔNG chuyển câu tự động
             showQuestion(qIdx); 
         }
 
@@ -342,7 +334,6 @@
             document.getElementById('resultModal').classList.remove('hidden');
             document.getElementById('resultIcon').innerText = isPassed ? '🏆' : '⚠️';
             document.getElementById('resultTitle').innerText = isPassed ? "ĐẠT KẾT QUẢ" : "KHÔNG ĐẠT";
-            document.getElementById('resultTitle').className = `text-2xl font-black mb-1 ${isPassed ? 'text-green-600' : 'text-red-600'}`;
             document.getElementById('resultScore').innerText = `${score}/30`;
             document.getElementById('resultDetails').innerHTML = `
                 <p><b>Học viên:</b> ${document.getElementById('studentName').innerText}</p>
