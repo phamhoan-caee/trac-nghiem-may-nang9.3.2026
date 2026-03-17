@@ -1,300 +1,621 @@
-      const questionBank = [
-    { q: "Khi lên hoặc xuống cabin xe nâng, người lái xe cần thực hiện như thế nào cho đúng?", options: { A: "Nhảy nhanh lên cabin để tiết kiệm thời gian.", B: "Bám vô lăng để leo lên.", C: "Tay trái nắm tay vịn, tay phải bám vào tựa lưng ghế, bước từng bậc lên xuống.", D: "Đặt chân lên càng nâng để leo lên." }, correct: "C", image: "https://drive.google.com/uc?export=download&id=1eRUzZsJtgEcj0vohejao3ga3iWJRr_UP" },
-    { q: "Mục đích chính của việc kiểm tra xe nâng trước mỗi ca làm việc là gì?", options: { A: "Để đảm bảo xe luôn sạch sẽ.", B: "Để phát hiện sớm các hư hỏng tiềm ẩn và đảm bảo an toàn.", C: "Để tính toán lượng nhiên liệu.", D: "Để báo cáo cho cấp trên." }, correct: "B" },
-    { q: "Khoảng cách an toàn tối thiểu giữa xe nâng và người đi bộ trong kho là bao nhiêu?", options: { A: "0.5 mét", B: "1 mét", C: "Ít nhất 2 mét", D: "5 mét" }, correct: "C" },
-    { q: "Khi di chuyển trên mặt bằng phẳng không có hàng, chiều cao càng nâng nên là:", options: { A: "Sát mặt đất", B: "15 - 20 cm", C: "50 cm", D: "Nâng cao hết mức" }, correct: "B" },
-    { q: "Nếu tải trọng hàng che khuất tầm nhìn phía trước, người lái phải làm gì?", options: { A: "Rướn người ra ngoài", B: "Lùi xe khi di chuyển", C: "Nhờ người ngồi lên hàng chỉ đường", D: "Bấm còi liên tục và đi thẳng" }, correct: "B" },
-    { q: "Đèn cảnh báo nào sẽ sáng nếu hệ thống sạc của xe (máy phát) gặp sự cố?", options: { A: "Đèn báo dầu", B: "Đèn báo nhiệt độ", C: "Đèn báo ắc quy/sạc", D: "Đèn báo phanh" }, correct: "C" },
-    { q: "Khi thấy hàng bị nghiêng trên pallet, người lái cần làm gì?", options: { A: "Dừng xe và chỉnh lại hàng.", B: "Vẫn di chuyển bình thường.", C: "Tăng tốc để hàng không rơi.", D: "Phanh gấp để hàng cân bằng lại." }, correct: "A" },
-    { q: "Trọng tâm của xe nâng thay đổi như thế nào khi nâng hàng lên cao?", options: { A: "Dịch chuyển ra phía trước và lên cao.", B: "Dịch chuyển ra phía sau.", C: "Không thay đổi.", D: "Hạ thấp xuống đất." }, correct: "A" },
-    { q: "Khi xe nâng đang xuống dốc có tải, người lái nên di chuyển như thế nào?", options: { A: "Đi tiến.", B: "Đi lùi.", C: "Tắt máy thả trôi.", D: "Đi chéo dốc." }, correct: "B" },
-    { q: "Sức nâng ghi trên biểu đồ tải trọng (Load Chart) là sức nâng tương ứng với:", options: { A: "Trọng tâm tải ở bất kỳ vị trí nào.", B: "Trọng tâm tải ở vị trí tiêu chuẩn.", C: "Chiều cao nâng tối đa.", D: "Chiều dài càng nâng." }, correct: "B" },
-    { q: "Khi đỗ xe nâng, người lái cần thực hiện thao tác nào sau đây?", options: { A: "Hạ càng sát đất, nghiêng trụ ra phía trước, kéo phanh tay.", B: "Nâng càng cao 1m để tránh người đi qua.", C: "Tắt máy và để số tiến.", D: "Chỉ cần kéo phanh tay là đủ." }, correct: "A" },
-    { q: "Áp suất lốp xe nâng quá thấp sẽ gây ra hậu quả gì?", options: { A: "Xe đi nhanh hơn.", B: "Mất ổn định và dễ lật xe khi nâng hàng.", C: "Tiết kiệm nhiên liệu.", D: "Tăng tuổi thọ lốp." }, correct: "B" },
-    { q: "Sử dụng xe nâng để nâng người lên cao mà không có lồng bảo vệ được phép không?", options: { A: "Được phép nếu đứng vững.", B: "Tuyệt đối không được phép.", C: "Được phép nếu nâng thấp.", D: "Được phép nếu có người giữ ở dưới." }, correct: "B" },
-    { q: "Khi đi qua cửa kho hoặc khúc quanh, người lái phải làm gì?", options: { A: "Tăng tốc để qua nhanh.", B: "Đi bình thường.", C: "Giảm tốc độ và bấm còi cảnh báo.", D: "Tắt đèn để không làm chói mắt người khác." }, correct: "C" },
-    { q: "Xích nâng cần được kiểm tra yếu tố nào sau đây?", options: { A: "Độ giãn, vết nứt và bôi trơn.", B: "Màu sơn của xích.", C: "Độ dài của xích.", D: "Trọng lượng của xích." }, correct: "A" },
-    { q: "Khi xe nâng bị lật ngang, người lái nên làm gì?", options: { A: "Nhảy ra khỏi xe ngay lập tức.", B: "Ngồi chặt trên ghế, bám vô lăng, nghiêng người ngược hướng lật.", C: "Cố gắng đẩy xe lại.", D: "Kêu cứu." }, correct: "B" },
-    { q: "Bộ phận nào có chức năng thay đổi hướng chuyển động của xe?", options: { A: "Hệ thống phanh.", B: "Hệ thống lái.", C: "Hệ thống nâng hạ.", D: "Hộp số." }, correct: "B" },
-    { q: "Dầu thủy lực trong xe nâng có tác dụng gì?", options: { A: "Bôi trơn động cơ.", B: "Làm mát phanh.", C: "Truyền lực cho hệ thống nâng hạ.", D: "Để rửa xe." }, correct: "C" },
-    { q: "Tại sao không nên phanh gấp khi xe nâng đang có tải?", options: { A: "Làm hỏng phanh.", B: "Làm hàng rơi ra phía trước và lật xe.", C: "Làm mòn lốp.", D: "Gây tốn xăng." }, correct: "B" },
-    { q: "Càng nâng nên đưa vào pallet như thế nào?", options: { A: "Vào một nửa chiều dài pallet.", B: "Vào hết chiều dài pallet và nằm cân đối.", C: "Vào lệch sang trái.", D: "Vào lệch sang phải." }, correct: "B" },
-    { q: "Khi làm việc ban đêm, xe nâng bắt buộc phải có thiết bị gì?", options: { A: "Còi hơi.", B: "Đèn chiếu sáng và đèn tín hiệu.", C: "Gương chiếu hậu lớn.", D: "Máy nghe nhạc." }, correct: "B" },
-    { q: "Khói xả động cơ diesel có màu đen đặc là dấu hiệu gì?", options: { A: "Động cơ quá tốt.", B: "Thừa nhiên liệu hoặc lọc gió bị tắc.", C: "Thiếu dầu bôi trơn.", D: "Hết nước làm mát." }, correct: "B" },
-    { q: "Khoảng cách giữa hai càng nâng nên điều chỉnh như thế nào?", options: { A: "Càng rộng càng tốt.", B: "Càng hẹp càng tốt.", C: "Rộng tối đa và cân đối với tải trọng.", D: "Giữ nguyên một vị trí cố định." }, correct: "C" },
-    { q: "Khi lái xe nâng lên dốc có hàng, người lái phải đi như thế nào?", options: { A: "Đi tiến.", B: "Đi lùi.", C: "Đi chéo.", D: "Tắt máy đẩy lên." }, correct: "A" },
-    { q: "Tải trọng tâm (Load Center) thường được tính từ đâu?", options: { A: "Từ đầu càng nâng.", B: "Từ mặt tựa lưng của càng nâng.", C: "Từ bánh trước.", D: "Từ mặt đất." }, correct: "B" },
-    { q: "Pallet hỏng có được sử dụng để nâng hàng không?", options: { A: "Được nếu hàng nhẹ.", B: "Được nếu dùng dây buộc lại.", C: "Tuyệt đối không được sử dụng.", D: "Được nếu chỉ nâng thấp." }, correct: "C" },
-    { q: "Khi người đi bộ cắt ngang đường xe nâng đang chạy, ưu tiên thuộc về ai?", options: { A: "Xe nâng.", B: "Người đi bộ.", C: "Ai đi nhanh hơn thì đi trước.", D: "Do hai bên tự thỏa thuận." }, correct: "B" },
-    { q: "Van an toàn trong hệ thống thủy lực có tác dụng gì?", options: { A: "Tăng tốc độ nâng.", B: "Tránh quá tải cho hệ thống.", C: "Giảm tiếng ồn.", D: "Tiết kiệm dầu." }, correct: "B" },
-    { q: "Nhiên liệu của xe nâng điện là gì?", options: { A: "Xăng.", B: "Dầu Diesel.", C: "Ắc quy (điện năng).", D: "Gas (LPG)." }, correct: "C" },
-    { q: "Trong kho hẹp, loại xe nâng nào thường được sử dụng?", options: { A: "Xe nâng container.", B: "Xe nâng Reach Truck (tầm cao).", C: "Xe nâng dầu 10 tấn.", D: "Xe cẩu." }, correct: "B" },
-    { q: "Trước khi khởi động xe nâng dầu, cần kiểm tra mức dầu nào?", options: { A: "Dầu động cơ.", B: "Dầu hộp số.", C: "Dầu thủy lực.", D: "Tất cả các loại trên." }, correct: "D" },
-    { q: "Khi nâng hàng, nếu nghe tiếng kêu lạ từ hệ thống thủy lực, bạn làm gì?", options: { A: "Cố gắng làm nốt ca.", B: "Dừng máy và báo kỹ thuật kiểm tra.", C: "Đổ thêm nước vào bình dầu.", D: "Bịt tai lại và làm tiếp." }, correct: "B" },
-    { q: "Độ nghiêng của trụ nâng ra phía sau có tác dụng gì khi di chuyển?", options: { A: "Để hàng không bị trượt ra phía trước.", B: "Để xe đi nhanh hơn.", C: "Để tiết kiệm dầu.", D: "Chỉ để cho đẹp." }, correct: "A" },
-    { q: "Khi xe nâng làm việc trong container, cần lưu ý điều gì nhất?", options: { A: "Đèn chiếu sáng bên trong và sàn container.", B: "Màu sơn container.", C: "Kích thước bánh xe.", D: "Nhiệt độ ngoài trời." }, correct: "A" },
-    { q: "Phanh tay xe nâng nên được sử dụng khi nào?", options: { A: "Khi đang chạy tốc độ cao.", B: "Khi dừng, đỗ xe hoặc trên dốc.", C: "Khi nâng hàng lên cao.", D: "Khi đang lùi xe." }, correct: "B" },
-    { q: "Nước làm mát động cơ có tác dụng gì?", options: { A: "Rửa sạch động cơ.", B: "Giữ nhiệt độ động cơ ở mức ổn định.", C: "Tăng công suất động cơ.", D: "Làm động cơ kêu to hơn." }, correct: "B" },
-    { q: "Chiều cao của càng nâng phải đạt tối thiểu bao nhiêu so với pallet?", options: { A: "1/3 chiều dài pallet.", B: "1/2 chiều dài pallet.", C: "2/3 chiều dài pallet.", D: "Đúng bằng chiều dài pallet." }, correct: "C" },
-    { q: "Việc thay đổi trọng tải của xe bằng cách thêm đối trọng (cục sắt) được phép không?", options: { A: "Được nếu cần nâng hàng nặng.", B: "Không được phép vì làm mất cân bằng thiết kế.", C: "Được nếu thợ cơ khí làm.", D: "Được nếu có người đứng phía sau xe." }, correct: "B" },
-    { q: "Khi sạc bình ắc quy xe nâng điện, cần chú ý điều gì?", options: { A: "Nơi sạc phải thông thoáng, tránh nguồn lửa.", B: "Sạc trong phòng kín để giữ điện.", C: "Vừa sạc vừa vận hành xe.", D: "Sạc càng nhanh càng tốt." }, correct: "A" },
-    { q: "Lọc dầu thủy lực nên được thay thế khi nào?", options: { A: "Khi dầu bị đen.", B: "Theo số giờ vận hành quy định của nhà sản xuất.", C: "Khi máy không nâng được nữa.", D: "10 năm một lần." }, correct: "B" },
-    { q: "Gương chiếu hậu trên xe nâng có tác dụng chính là gì?", options: { A: "Để soi gương trang điểm.", B: "Để quan sát phía sau khi di chuyển.", C: "Để trang trí.", D: "Để quan sát hàng nâng." }, correct: "B" },
-    { q: "Khi điều khiển xe nâng, chân trái của người lái (xe số sàn) đặt ở đâu?", options: { A: "Đặt lên bàn đạp ly hợp (côn).", B: "Đặt lên bàn đạp phanh.", C: "Đặt xuống sàn xe.", D: "Để tự do." }, correct: "A" },
-    { q: "Tín hiệu còi xe nâng dùng để làm gì?", options: { A: "Chào hỏi đồng nghiệp.", B: "Cảnh báo khi vào góc khuất hoặc nguy hiểm.", C: "Thúc giục người khác tránh đường.", D: "Thử xem còi còn kêu không." }, correct: "B" },
-    { q: "Khi xe đang di chuyển, người lái có được phép chỉnh ghế không?", options: { A: "Được nếu thấy mỏi.", B: "Không được, phải dừng xe hoàn toàn.", C: "Được nếu đường vắng.", D: "Được nếu lái bằng một tay." }, correct: "B" },
-    { q: "Bộ phận nào trên xe nâng chịu lực nhiều nhất khi nâng hàng?", options: { A: "Vô lăng.", B: "Trụ nâng và càng nâng.", C: "Ghế ngồi.", D: "Đối trọng." }, correct: "B" },
-    { q: "Nếu lốp xe nâng là lốp đặc bị mẻ một miếng lớn, bạn nên làm gì?", options: { A: "Vẫn dùng bình thường.", B: "Thay lốp mới để đảm bảo cân bằng.", C: "Lấy băng keo dán lại.", D: "Sơn lại chỗ mẻ." }, correct: "B" },
-    { q: "Khi nâng hàng cao, việc đánh lái gấp sẽ dẫn đến hậu quả gì?", options: { A: "Xe quay vòng nhanh hơn.", B: "Xe dễ bị lật nghiêng.", C: "Hàng sẽ cân bằng hơn.", D: "Tiết kiệm lốp." }, correct: "B" },
-    { q: "Trên xe nâng, ký hiệu 'LPG' nghĩa là gì?", options: { A: "Nhiên liệu dầu Diesel.", B: "Nhiên liệu khí hóa lỏng (Gas).", C: "Nhiên liệu điện.", D: "Dầu thủy lực." }, correct: "B" },
-    { q: "Chiều cao nâng tự do (Free Lift) là gì?", options: { A: "Chiều cao nâng tối đa.", B: "Chiều cao nâng mà trụ nâng không thay đổi chiều cao tổng thể.", C: "Chiều cao khi không có hàng.", D: "Chiều cao từ đất đến ghế ngồi." }, correct: "B" },
-    { q: "Người không có chứng chỉ vận hành có được lái xe nâng không?", options: { A: "Được nếu có người hướng dẫn ngồi cạnh.", B: "Tuyệt đối không được phép.", C: "Được nếu chỉ lái trong sân trống.", D: "Được nếu là chủ xe." }, correct: "B" },
-    { q: "Tại sao phải hạ hàng xuống thấp khi di chuyển?", options: { A: "Để tránh va chạm vào chướng ngại vật trên cao và giữ ổn định xe.", B: "Để tiết kiệm xăng.", C: "Để nhìn đường rõ hơn.", D: "Cả A và C đều đúng." }, correct: "D" },
-    { q: "Việc sử dụng điện thoại khi đang lái xe nâng là:", options: { A: "Được phép nếu dùng tai nghe.", B: "Bị nghiêm cấm vì gây mất tập trung.", C: "Được phép nếu đi chậm.", D: "Được phép nếu đang chờ hàng." }, correct: "B" },
-    { q: "Dây an toàn trên xe nâng có tác dụng gì khi xe bị lật?", options: { A: "Giúp người lái không bị văng ra ngoài và bị xe đè lên.", B: "Làm người lái đau hơn.", C: "Chỉ để đối phó với kiểm tra.", D: "Để giữ người lái ngồi im khi ngủ." }, correct: "A" },
-    { q: "Ký hiệu 'Max Capacity' trên xe nâng nghĩa là gì?", options: { A: "Tốc độ tối đa.", B: "Tải trọng nâng tối đa cho phép.", C: "Chiều cao nâng tối đa.", D: "Dung tích bình xăng." }, correct: "B" },
-    { q: "Khi động cơ xe nâng đang quá nóng (sôi nước), bạn không nên làm gì?", options: { A: "Mở nắp két nước ngay lập tức.", B: "Để máy chạy không tải một lúc.", C: "Kiểm tra rò rỉ nước.", D: "Dừng xe vào chỗ mát." }, correct: "A" },
-    { q: "Màu của dầu thủy lực sạch thường là màu gì?", options: { A: "Đen đặc.", B: "Trắng như nước.", C: "Vàng nhạt hoặc đỏ trong suốt.", D: "Xanh lá cây đậm." }, correct: "C" },
-    { q: "Khi làm việc trong môi trường thực phẩm, nên ưu tiên xe nâng loại nào?", options: { A: "Xe nâng chạy dầu Diesel khói đen.", B: "Xe nâng điện để không gây ô nhiễm.", C: "Xe nâng xăng.", D: "Xe nâng dùng củi đốt." }, correct: "B" },
-    { q: "Biển báo hình tam giác vàng, viền đen có ý nghĩa gì trong kho?", options: { A: "Biển báo cấm.", B: "Biển báo nguy hiểm/cảnh báo.", C: "Biển chỉ dẫn.", D: "Biển báo hiệu lệnh." }, correct: "B" },
-    { q: "Khi lái xe nâng lùi, người lái phải quan sát như thế nào?", options: { A: "Chỉ nhìn gương chiếu hậu.", B: "Quay đầu nhìn trực tiếp về phía sau.", C: "Nhìn về phía trước.", D: "Nhắm mắt lại và nghe tiếng tít tít." }, correct: "B" },
-    { q: "Bộ phận 'Đối trọng' (Counterweight) nằm ở đâu trên xe nâng?", options: { A: "Phía trước xe.", B: "Phía sau xe.", C: "Dưới gầm xe.", D: "Trên nóc xe." }, correct: "B" },
-    { q: "Khi càng nâng đang ở trên cao, có được phép đi bộ phía dưới không?", options: { A: "Được nếu đi nhanh.", B: "Tuyệt đối không được phép vì nguy hiểm.", C: "Được nếu có đội mũ bảo hiểm.", D: "Được nếu người lái xe đồng ý." }, correct: "B" },
-    { q: "Xích nâng bị chùng không đều hai bên sẽ dẫn đến:", options: { A: "Càng nâng bị nghiêng, gây rơi hàng.", B: "Xe đi chậm lại.", C: "Tiết kiệm dầu.", D: "Không ảnh hưởng gì." }, correct: "A" },
-    { q: "Trước khi rời khỏi xe nâng, vị trí cần số nên ở đâu?", options: { A: "Số tiến.", B: "Số lùi.", C: "Số trung gian (N).", D: "Số nào cũng được." }, correct: "C" },
-    { q: "Công tắc ngắt khẩn cấp (nút đỏ) trên xe nâng điện dùng để làm gì?", options: { A: "Để tắt nhạc.", B: "Để ngắt toàn bộ điện năng khi có sự cố.", C: "Để bật đèn pha.", D: "Để khởi động máy." }, correct: "B" },
-    { q: "Khi nâng một kiện hàng quá nặng vượt mức cho phép, điều gì sẽ xảy ra?", options: { A: "Đuôi xe nâng bị hổng lên (bênh đuôi).", B: "Xe chạy nhanh hơn.", C: "Càng nâng sẽ ngắn lại.", D: "Động cơ sẽ mát hơn." }, correct: "A" },
-    { q: "Độ rơ vô lăng quá lớn sẽ gây khó khăn gì?", options: { A: "Khó điều khiển hướng đi chính xác.", B: "Làm xe tốn xăng hơn.", C: "Làm phanh không ăn.", D: "Làm hàng rơi." }, correct: "A" },
-    { q: "Khi di chuyển trên đường có nhiều dầu mỡ, người lái xe nên:", options: { A: "Phanh gấp để thử độ trơn.", B: "Tăng tốc thật nhanh.", C: "Giảm tốc độ, tránh đánh lái gấp.", D: "Vừa đi vừa hút thuốc." }, correct: "C" },
-    { q: "Việc 'đùa nghịch' bằng xe nâng trong giờ làm việc là:", options: { A: "Được phép nếu không có sếp.", B: "Hành vi gây nguy hiểm và bị nghiêm cấm.", C: "Giúp giảm căng thẳng.", D: "Chỉ bị nhắc nhở nhẹ." }, correct: "B" },
-    { q: "Khi kiểm tra bình ắc quy, nếu thấy mức nước thấp, ta nên châm thêm gì?", options: { A: "Axit đậm đặc.", B: "Nước cất.", C: "Nước lọc.", D: "Nước muối." }, correct: "B" },
-    { q: "Tại sao không nên để xe nâng hoạt động trong kho kín quá lâu (xe dầu)?", options: { A: "Gây ồn.", B: "Tích tụ khí độc Carbon Monoxide (CO) gây nguy hiểm tính mạng.", C: "Làm hỏng kho.", D: "Làm hàng hóa bị nóng." }, correct: "B" },
-    { q: "Trọng tâm của khối hàng nằm càng xa mặt tựa càng nâng thì:", options: { A: "Sức nâng của xe càng giảm.", B: "Sức nâng của xe càng tăng.", C: "Sức nâng không thay đổi.", D: "Xe đi nhanh hơn." }, correct: "A" },
-    { q: "Ký hiệu 'Inch Pedal' (bàn đạp nhích) có tác dụng gì?", options: { A: "Để phanh dừng hẳn.", B: "Để ngắt truyền động đồng thời phanh nhẹ, giúp tiếp cận hàng chính xác.", C: "Để tăng tốc.", D: "Để lùi xe." }, correct: "B" },
-    { q: "Nếu thấy có người đứng trên pallet để giữ hàng khi xe đang chạy, bạn làm gì?", options: { A: "Tiếp tục chạy thật chậm.", B: "Yêu cầu người đó xuống ngay lập tức.", C: "Tăng tốc để họ sợ.", D: "Cảm ơn họ vì đã giúp." }, correct: "B" },
-    { q: "Khi lấy hàng từ trên giá cao, thao tác đầu tiên là gì?", options: { A: "Nâng càng lên đúng độ cao pallet.", B: "Húc thẳng vào giá kệ.", C: "Bấm còi 3 lần.", D: "Lùi xe lại." }, correct: "A" },
-    { q: "Góc nghiêng trụ nâng (Mast Tilt) thường là khoảng bao nhiêu độ?", options: { A: "90 độ.", B: "Khoảng 5 - 12 độ.", C: "45 độ.", D: "180 độ." }, correct: "B" },
-    { q: "Việc quá tải (Overload) xe nâng thường xuyên dẫn đến:", options: { A: "Gãy càng nâng, hỏng hệ thống thủy lực.", B: "Xe bền hơn.", C: "Tiết kiệm thời gian làm việc.", D: "Người lái được thưởng." }, correct: "A" },
-    { q: "Khi lái xe nâng, tầm nhìn bị che khuất bởi các cột nhà, bạn nên:", options: { A: "Đi thật nhanh qua điểm mù.", B: "Quan sát kỹ, giảm tốc độ và bấm còi.", C: "Nhắm mắt lại.", D: "Nhờ người khác đẩy xe." }, correct: "B" },
-    { q: "Hệ thống lái xe nâng thường nằm ở bánh nào?", options: { A: "Bánh trước.", B: "Bánh sau.", C: "Cả 4 bánh.", D: "Không có bánh nào." }, correct: "B" },
-    { q: "Tại sao xe nâng lại lái bằng bánh sau?", options: { A: "Để xe đi nhanh hơn.", B: "Để tăng độ linh hoạt trong không gian hẹp.", C: "Để nhìn đường rõ hơn.", D: "Do thiết kế nhầm." }, correct: "B" },
-    { q: "Khi thay bình gas (LPG) cho xe nâng, cần lưu ý gì?", options: { A: "Khóa van bình gas, kiểm tra rò rỉ bằng nước xà phòng.", B: "Dùng lửa để thử xem có rò rỉ không.", C: "Vừa hút thuốc vừa thay.", D: "Không cần khóa van." }, correct: "A" },
-    { q: "Trên bảng điều khiển, đèn báo lọc gió sáng đỏ nghĩa là:", options: { A: "Lọc gió rất sạch.", B: "Lọc gió bị bẩn/tắc, cần vệ sinh hoặc thay thế.", C: "Động cơ sắp hỏng.", D: "Hết dầu máy." }, correct: "B" },
-    { q: "Chiều cao xe nâng tổng thể (Overall Height) quan trọng khi nào?", options: { A: "Khi đi qua cửa kho hoặc hầm thấp.", B: "Khi xe đang đứng yên.", C: "Khi xe đang nâng hàng.", D: "Khi xe đang sạc điện." }, correct: "A" },
-    { q: "Khi điều khiển xe nâng vào khúc cua, lực nào tác động dễ làm xe lật?", options: { A: "Lực hấp dẫn.", B: "Lực ly tâm.", C: "Lực ma sát.", D: "Lực đẩy." }, correct: "B" },
-    { q: "Một người lái xe nâng giỏi là người:", options: { A: "Lái xe nhanh nhất công ty.", B: "Nâng được hàng nặng nhất.", C: "Vận hành an toàn, đúng kỹ thuật và bảo quản xe tốt.", D: "Biết sửa mọi loại hỏng hóc." }, correct: "C" },
-    { q: "Khi phát hiện rò rỉ dầu thủy lực, người lái nên:", options: { A: "Lấy giẻ lau sạch và làm tiếp.", B: "Dừng xe báo cáo sửa chữa.", C: "Đổ thêm cát vào chỗ rò rỉ.", D: "Kệ nó, không sao." }, correct: "B" },
-    { q: "Khoảng cách an toàn giữa hai xe nâng chạy cùng chiều là bao nhiêu?", options: { A: "1 mét.", B: "3 lần chiều dài thân xe.", C: "Càng gần càng tốt để hỗ trợ nhau.", D: "100 mét." }, correct: "B" },
-    { q: "Biển báo 'Stop' trong kho yêu cầu người lái xe:", options: { A: "Dừng hẳn xe, quan sát rồi mới đi tiếp.", B: "Chỉ cần giảm tốc độ.", B: "Bấm còi và đi thẳng.", D: "Quay đầu xe." }, correct: "A" },
-    { q: "Khi nâng hàng, nếu hàng bị vướng vào giá kệ, bạn nên:", options: { A: "Cố gắng giật mạnh ra.", B: "Hạ hàng xuống, điều chỉnh lại vị trí rồi mới nâng tiếp.", C: "Tăng ga thật lớn.", D: "Nhờ người leo lên gỡ." }, correct: "B" },
-    { q: "Bộ phận nào bảo vệ người lái khi có hàng rơi từ trên cao xuống?", options: { A: "Mái che an toàn (Overhead Guard).", B: "Cửa kính.", C: "Mũ bảo hiểm.", D: "Càng nâng." }, correct: "A" },
-    { q: "Việc chở thêm người trên xe nâng khi không có ghế ngồi cho họ là:", options: { A: "Được phép nếu đi chậm.", B: "Vi phạm quy tắc an toàn nghiêm trọng.", C: "Được nếu là sếp.", D: "Được nếu người đó đứng chắc trên đối trọng." }, correct: "B" },
-    { q: "Khi đỗ xe trên dốc (trường hợp khẩn cấp), bạn phải làm gì ngoài phanh tay?", options: { A: "Tắt máy và bỏ đi.", B: "Chèn bánh xe bằng gỗ hoặc đá.", C: "Cứ để xe trôi tự do.", D: "Nhờ người giữ xe." }, correct: "B" },
-    { q: "Dầu phanh xe nâng cần được kiểm tra ở đâu?", options: { A: "Bình chứa dầu phanh thường nằm gần bàn đạp phanh hoặc trong khoang máy.", B: "Trong lốp xe.", C: "Trong ống xả.", D: "Trên nóc cabin." }, correct: "A" },
-    { q: "Tiếng còi 'bíp bíp' khi xe nâng lùi có mục đích gì?", options: { A: "Để người lái đỡ buồn ngủ.", B: "Cảnh báo cho người xung quanh biết xe đang lùi.", C: "Báo hiệu xe sắp hết xăng.", D: "Báo hiệu xe đã hỏng." }, correct: "B" },
-    { q: "Khi vận chuyển hàng lỏng trong thùng, cần lưu ý điều gì?", options: { A: "Đi thật nhanh.", B: "Tránh phanh gấp hoặc đổi hướng đột ngột vì sóng sánh làm lật xe.", C: "Mở nắp thùng ra cho thoáng.", D: "Không cần lưu ý gì." }, correct: "B" },
-    { q: "Ánh sáng xanh (Blue Light) chiếu xuống đất phía sau xe nâng điện dùng để:", options: { A: "Làm đẹp cho xe.", B: "Cảnh báo sớm cho người đi bộ biết xe đang đi tới từ phía sau.", C: "Chiếu sáng đường đi.", D: "Báo hiệu xe đã đầy pin." }, correct: "B" },
-    { q: "Kỹ năng 'Sling' (sử dụng dây cẩu) kết hợp với xe nâng có được phép không?", options: { A: "Được nếu có phụ kiện chuyên dụng và được cấp phép.", B: "Tuyệt đối cấm dùng dây buộc vào càng nâng.", C: "Được nếu dùng dây thừng chắc.", D: "Chỉ được dùng dây thép." }, correct: "A" },
-    { q: "Khi làm việc dưới trời mưa, xe nâng dầu cần lưu ý gì?", options: { A: "Trơn trượt và tầm nhìn hạn chế.", B: "Xe sẽ sạch hơn.", C: "Xe sẽ mát hơn.", D: "Không nên làm việc dưới mưa." }, correct: "A" },
-    { q: "Sau khi kết thúc ca làm việc, bạn nên làm gì với chìa khóa xe?", options: { A: "Cứ để trên xe.", B: "Rút chìa khóa và bàn giao hoặc để đúng nơi quy định.", C: "Cầm về nhà.", D: "Vứt đi." }, correct: "B" },
-    { q: "Lốp đặc (Solid Tire) thường được dùng trong môi trường nào?", options: { A: "Đường bùn lầy.", B: "Sàn kho bằng phẳng, nhiều vật sắc nhọn (đinh, mảnh gỗ).", C: "Trên bãi cát.", D: "Trong rừng." }, correct: "B" },
-    { q: "Khi thấy xe nâng khác đang tiến lại gần ở ngã tư kho, bạn nên:", options: { A: "Tăng tốc để vượt qua trước.", B: "Giảm tốc độ, bấm còi, và nhường đường nếu cần thiết.", C: "Cứ đi bình thường.", D: "Dừng lại và tắt máy." }, correct: "B" },
-    { q: "Tại sao không được phép nâng hàng khi trụ nâng đang nghiêng về phía trước?", options: { A: "Làm hàng dễ bị trượt rơi và xe dễ lật về phía trước.", B: "Làm xe đi chậm.", C: "Làm hỏng xích nâng.", D: "Làm tốn dầu thủy lực." }, correct: "A" },
-    { q: "Vệ sinh xe nâng nên thực hiện khi nào?", options: { A: "Khi xe quá bẩn.", B: "Định kỳ hàng tuần hoặc sau ca làm việc trong môi trường bụi bẩn.", C: "Khi xe hỏng.", D: "Không cần vệ sinh." }, correct: "B" },
-    { q: "Người lái xe nâng có được phép tự ý sửa chữa hệ thống điện không?", options: { A: "Được nếu biết sơ sơ.", B: "Không, phải do nhân viên kỹ thuật chuyên môn thực hiện.", C: "Được nếu có kìm và tuốc nơ vít.", D: "Được nếu xe đã hết bảo hành." }, correct: "B" },
-    { q: "Khi xuống dốc không tải (không có hàng), xe nâng đi như thế nào?", options: { A: "Đi tiến.", B: "Đi lùi.", C: "Đi chéo.", D: "Tắt máy thả trôi." }, correct: "A" },
-    { q: "Tốc độ tối đa an toàn của xe nâng trong kho thường là:", options: { A: "5 - 10 km/h.", B: "30 km/h.", C: "50 km/h.", D: "Tùy ý người lái." }, correct: "A" },
-    { q: "Thái độ quan trọng nhất của người lái xe nâng là gì?", options: { A: "Luôn đặt an toàn lên hàng đầu.", B: "Làm việc thật nhanh để tăng sản lượng.", C: "Tiết kiệm nhiên liệu tối đa.", D: "Nghe lời sếp tuyệt đối dù mất an toàn." }, correct: "A" }
+const questionBank = [
+
+{
+q:"Xe nâng khi xuống dốc có tải phải đi thế nào?",
+options:{A:"Đi tiến",B:"Đi lùi",C:"Đi ngang",D:"Tắt máy"},
+correct:"B"
+},
+
+{
+q:"Khi tầm nhìn bị che bởi hàng?",
+options:{A:"Rướn người nhìn",B:"Lùi xe",C:"Tăng tốc",D:"Nhờ người ngồi lên"},
+correct:"B"
+},
+
+{
+q:"Khoảng cách an toàn với người đi bộ?",
+options:{A:"0.5m",B:"1m",C:"2m",D:"5m"},
+correct:"C"
+},
+
+{
+q:"Khi đỗ xe nâng phải?",
+options:{A:"Hạ càng",B:"Kéo phanh tay",C:"Tắt máy",D:"Tất cả"},
+correct:"D"
+},
+
+{
+q:"Mục đích kiểm tra xe nâng trước ca làm việc?",
+options:{A:"Để xe sạch",B:"Phát hiện hư hỏng",C:"Tăng tốc độ",D:"Tiết kiệm xăng"},
+correct:"B"
+},
+
+{
+q:"Khi di chuyển không tải, càng nâng nên cao bao nhiêu?",
+options:{A:"Sát đất",B:"15-20cm",C:"50cm",D:"1m"},
+correct:"B"
+},
+
+{
+q:"Khi hàng che khuất tầm nhìn phía trước?",
+options:{A:"Nhìn nghiêng",B:"Lùi xe",C:"Tăng tốc",D:"Bấm còi liên tục"},
+correct:"B"
+},
+
+{
+q:"Đèn báo ắc quy sáng nghĩa là?",
+options:{A:"Thiếu nước",B:"Lỗi sạc",C:"Thiếu dầu",D:"Hỏng phanh"},
+correct:"B"
+},
+
+{
+q:"Khi pallet bị nghiêng?",
+options:{A:"Dừng và chỉnh",B:"Đi tiếp",C:"Tăng tốc",D:"Phanh gấp"},
+correct:"A"
+},
+
+{
+q:"Trọng tâm xe nâng khi nâng hàng?",
+options:{A:"Ra trước và lên cao",B:"Ra sau",C:"Không đổi",D:"Xuống thấp"},
+correct:"A"
+},
+
+{
+q:"Khi xe nâng xuống dốc có tải?",
+options:{A:"Đi tiến",B:"Đi lùi",C:"Đi chéo",D:"Tắt máy"},
+correct:"B"
+},
+
+{
+q:"Khi đỗ xe nâng?",
+options:{A:"Hạ càng",B:"Kéo phanh",C:"Tắt máy",D:"Tất cả"},
+correct:"D"
+},
+
+{
+q:"Áp suất lốp thấp gây?",
+options:{A:"Đi nhanh",B:"Mất ổn định",C:"Tiết kiệm xăng",D:"Không ảnh hưởng"},
+correct:"B"
+},
+
+{
+q:"Có được nâng người bằng xe nâng?",
+options:{A:"Được",B:"Không",C:"Được nếu thấp",D:"Được nếu có người giữ"},
+correct:"B"
+},
+
+{
+q:"Khi qua góc khuất?",
+options:{A:"Tăng tốc",B:"Bấm còi",C:"Tắt đèn",D:"Dừng lâu"},
+correct:"B"
+},
+
+{
+q:"Xích nâng cần kiểm tra?",
+options:{A:"Độ giãn",B:"Màu",C:"Chiều dài",D:"Trọng lượng"},
+correct:"A"
+},
+
+{
+q:"Khi xe nâng lật?",
+options:{A:"Nhảy ra",B:"Giữ chặt vô lăng",C:"Đẩy xe",D:"Chạy"},
+correct:"B"
+},
+
+{
+q:"Hệ thống đổi hướng xe?",
+options:{A:"Phanh",B:"Lái",C:"Nâng",D:"Hộp số"},
+correct:"B"
+},
+
+{
+q:"Dầu thủy lực dùng để?",
+options:{A:"Bôi trơn",B:"Truyền lực nâng",C:"Làm mát",D:"Rửa xe"},
+correct:"B"
+},
+
+{
+q:"Phanh gấp khi có tải sẽ?",
+options:{A:"Tốt",B:"Rơi hàng",C:"Không sao",D:"Nhanh hơn"},
+correct:"B"
+},
+
+{
+q:"Càng nâng vào pallet?",
+options:{A:"Nửa pallet",B:"Hết pallet",C:"Lệch",D:"Tùy ý"},
+correct:"B"
+},
+
+{
+q:"Xe nâng ban đêm cần?",
+options:{A:"Đèn",B:"Còi",C:"Gương",D:"Nhạc"},
+correct:"A"
+},
+
+{
+q:"Khói diesel đen?",
+options:{A:"Thừa nhiên liệu",B:"Thiếu dầu",C:"Thiếu nước",D:"Tốt"},
+correct:"A"
+},
+
+{
+q:"Khoảng cách càng nâng?",
+options:{A:"Rộng",B:"Hẹp",C:"Cân đối",D:"Cố định"},
+correct:"C"
+},
+
+{
+q:"Xe nâng lên dốc có tải?",
+options:{A:"Tiến",B:"Lùi",C:"Chéo",D:"Dừng"},
+correct:"A"
+},
+
+{
+q:"Tải trọng tâm tính từ?",
+options:{A:"Đầu càng",B:"Mặt tựa",C:"Bánh",D:"Đất"},
+correct:"B"
+},
+
+{
+q:"Pallet hỏng?",
+options:{A:"Dùng",B:"Không dùng",C:"Buộc dây",D:"Nâng thấp"},
+correct:"B"
+},
+
+{
+q:"Ai ưu tiên trong kho?",
+options:{A:"Xe",B:"Người đi bộ",C:"Nhanh hơn",D:"Thỏa thuận"},
+correct:"B"
+},
+
+{
+q:"Van an toàn thủy lực?",
+options:{A:"Tăng tốc",B:"Chống quá tải",C:"Giảm ồn",D:"Tiết kiệm"},
+correct:"B"
+},
+
+{
+q:"Xe nâng điện dùng?",
+options:{A:"Xăng",B:"Diesel",C:"Ắc quy",D:"Gas"},
+correct:"C"
+},
+
+{
+q:"Xe nâng kho hẹp?",
+options:{A:"Reach Truck",B:"Xe cẩu",C:"Xe dầu",D:"Container"},
+correct:"A"
+},
+
+{
+q:"Trước khi khởi động cần kiểm tra?",
+options:{A:"Dầu máy",B:"Dầu hộp số",C:"Dầu thủy lực",D:"Tất cả"},
+correct:"D"
+},
+
+{
+q:"Nghe tiếng lạ thủy lực?",
+options:{A:"Tiếp tục",B:"Dừng kiểm tra",C:"Đổ nước",D:"Bịt tai"},
+correct:"B"
+},
+
+{
+q:"Nghiêng trụ sau giúp?",
+options:{A:"Giữ hàng",B:"Nhanh hơn",C:"Tiết kiệm",D:"Đẹp"},
+correct:"A"
+},
+
+{
+q:"Xe trong container chú ý?",
+options:{A:"Ánh sáng",B:"Màu",C:"Lốp",D:"Nhiệt"},
+correct:"A"
+},
+
+{
+q:"Phanh tay dùng khi?",
+options:{A:"Chạy nhanh",B:"Dừng xe",C:"Nâng hàng",D:"Lùi"},
+correct:"B"
+},
+
+{
+q:"Nước làm mát?",
+options:{A:"Rửa máy",B:"Ổn định nhiệt",C:"Tăng lực",D:"Kêu to"},
+correct:"B"
+},
+
+{
+q:"Thêm đối trọng?",
+options:{A:"Được",B:"Không",C:"Thợ làm",D:"Đứng sau"},
+correct:"B"
+},
+
+{
+q:"Sạc ắc quy cần?",
+options:{A:"Thông thoáng",B:"Phòng kín",C:"Vừa chạy",D:"Nhanh"},
+correct:"A"
+},
+
+{
+q:"Gương chiếu hậu?",
+options:{A:"Trang điểm",B:"Quan sát sau",C:"Trang trí",D:"Nhìn hàng"},
+correct:"B"
+},
+
+{
+q:"Còi xe nâng dùng?",
+options:{A:"Chào",B:"Cảnh báo",C:"Thúc",D:"Thử"},
+correct:"B"
+},
+
+{
+q:"Chỉnh ghế khi chạy?",
+options:{A:"Được",B:"Không",C:"Được khi vắng",D:"Một tay"},
+correct:"B"
+},
+
+{
+q:"Bộ phận chịu lực nâng?",
+options:{A:"Vô lăng",B:"Trụ và càng",C:"Ghế",D:"Đối trọng"},
+correct:"B"
+},
+
+{
+q:"Lốp đặc mẻ?",
+options:{A:"Dùng",B:"Thay",C:"Dán",D:"Sơn"},
+correct:"B"
+},
+
+{
+q:"Đánh lái gấp khi nâng cao?",
+options:{A:"Nhanh",B:"Lật xe",C:"Ổn định",D:"Tiết kiệm"},
+correct:"B"
+},
+
+{
+q:"LPG nghĩa?",
+options:{A:"Diesel",B:"Gas hóa lỏng",C:"Điện",D:"Dầu"},
+correct:"B"
+},
+
+{
+q:"Free lift?",
+options:{A:"Nâng tối đa",B:"Nâng không tăng chiều cao trụ",C:"Không tải",D:"Chiều cao ghế"},
+correct:"B"
+},
+
+{
+q:"Không có chứng chỉ lái?",
+options:{A:"Được",B:"Không",C:"Sân trống",D:"Chủ xe"},
+correct:"B"
+},
+
+{
+q:"Hạ hàng thấp khi chạy để?",
+options:{A:"Ổn định",B:"Nhanh",C:"Đẹp",D:"Tiết kiệm"},
+correct:"A"
+},
+
+{
+q:"Dùng điện thoại khi lái?",
+options:{A:"Được",B:"Cấm",C:"Tai nghe",D:"Chậm"},
+correct:"B"
+},
+
+{
+q:"Dây an toàn giúp?",
+options:{A:"Không văng",B:"Đau",C:"Đối phó",D:"Ngủ"},
+correct:"A"
+},
+
+{
+q:"Max capacity?",
+options:{A:"Tốc độ",B:"Tải tối đa",C:"Chiều cao",D:"Dung tích"},
+correct:"B"
+},
+
+{
+q:"Động cơ quá nóng không nên?",
+options:{A:"Mở két nước",B:"Để nguội",C:"Kiểm tra",D:"Dừng xe"},
+correct:"A"
+},
+
+{
+q:"Dầu thủy lực sạch?",
+options:{A:"Đen",B:"Trắng",C:"Vàng nhạt",D:"Xanh"},
+correct:"C"
+},
+
+{
+q:"Kho thực phẩm nên dùng?",
+options:{A:"Diesel",B:"Điện",C:"Xăng",D:"Củi"},
+correct:"B"
+},
+
+{
+q:"Biển tam giác vàng?",
+options:{A:"Cấm",B:"Nguy hiểm",C:"Chỉ dẫn",D:"Hiệu lệnh"},
+correct:"B"
+},
+
+{
+q:"Lùi xe nâng phải?",
+options:{A:"Nhìn gương",B:"Quay đầu",C:"Nhìn trước",D:"Nhắm mắt"},
+correct:"B"
+},
+
+{
+q:"Đối trọng nằm?",
+options:{A:"Trước",B:"Sau",C:"Gầm",D:"Nóc"},
+correct:"B"
+},
+
+{
+q:"Đi dưới càng nâng?",
+options:{A:"Được",B:"Không",C:"Nhanh",D:"Mũ"},
+correct:"B"
+},
+
+{
+q:"Xích lệch?",
+options:{A:"Nghiêng càng",B:"Nhanh",C:"Tiết kiệm",D:"Không sao"},
+correct:"A"
+},
+
+{
+q:"Trước khi rời xe?",
+options:{A:"Số tiến",B:"Số lùi",C:"Số N",D:"Tùy"},
+correct:"C"
+},
+
+{
+q:"Nút đỏ xe điện?",
+options:{A:"Tắt nhạc",B:"Ngắt điện",C:"Đèn",D:"Khởi động"},
+correct:"B"
+},
+
+{
+q:"Quá tải xe nâng?",
+options:{A:"Đuôi hổng",B:"Nhanh",C:"Càng ngắn",D:"Mát máy"},
+correct:"A"
+},
+
+{
+q:"Rơ vô lăng lớn?",
+options:{A:"Khó lái",B:"Tốn xăng",C:"Mòn phanh",D:"Rơi hàng"},
+correct:"A"
+},
+
+{
+q:"Đường dầu mỡ?",
+options:{A:"Phanh gấp",B:"Nhanh",C:"Chậm",D:"Hút thuốc"},
+correct:"C"
+},
+
+{
+q:"Đùa nghịch xe nâng?",
+options:{A:"Được",B:"Cấm",C:"Giảm stress",D:"Nhắc"},
+correct:"B"
+},
+
+{
+q:"Ắc quy thiếu nước?",
+options:{A:"Axit",B:"Nước cất",C:"Nước lọc",D:"Muối"},
+correct:"B"
+},
+
+{
+q:"Xe dầu trong kho kín?",
+options:{A:"Ồn",B:"Khí CO độc",C:"Hỏng kho",D:"Nóng"},
+correct:"B"
+},
+
+{
+q:"Trọng tâm xa càng?",
+options:{A:"Giảm sức nâng",B:"Tăng",C:"Không đổi",D:"Nhanh"},
+correct:"A"
+},
+
+{
+q:"Inch pedal?",
+options:{A:"Phanh",B:"Nhích xe chính xác",C:"Tăng ga",D:"Lùi"},
+correct:"B"
+},
+
+{
+q:"Người đứng trên pallet?",
+options:{A:"Chạy",B:"Yêu cầu xuống",C:"Tăng tốc",D:"Cảm ơn"},
+correct:"B"
+},
+
+{
+q:"Lấy hàng giá cao?",
+options:{A:"Nâng đúng cao",B:"Húc",C:"Còi",D:"Lùi"},
+correct:"A"
+},
+
+{
+q:"Góc nghiêng trụ?",
+options:{A:"90°",B:"5-12°",C:"45°",D:"180°"},
+correct:"B"
+},
+
+{
+q:"Quá tải thường xuyên?",
+options:{A:"Gãy càng",B:"Bền",C:"Nhanh",D:"Thưởng"},
+correct:"A"
+},
+
+{
+q:"Điểm mù cột nhà?",
+options:{A:"Nhanh",B:"Quan sát",C:"Nhắm mắt",D:"Đẩy"},
+correct:"B"
+},
+
+{
+q:"Hệ thống lái?",
+options:{A:"Bánh trước",B:"Bánh sau",C:"4 bánh",D:"Không"},
+correct:"B"
+},
+
+{
+q:"Lái bánh sau để?",
+options:{A:"Nhanh",B:"Linh hoạt",C:"Rõ",D:"Nhầm"},
+correct:"B"
+},
+
+{
+q:"Thay bình gas?",
+options:{A:"Khóa van",B:"Lửa",C:"Hút thuốc",D:"Không khóa"},
+correct:"A"
+},
+
+{
+q:"Đèn lọc gió đỏ?",
+options:{A:"Sạch",B:"Bẩn",C:"Hỏng máy",D:"Hết dầu"},
+correct:"B"
+},
+
+{
+q:"Chiều cao tổng xe?",
+options:{A:"Qua cửa",B:"Đứng",C:"Nâng",D:"Sạc"},
+correct:"A"
+},
+
+{
+q:"Khúc cua dễ lật do?",
+options:{A:"Trọng lực",B:"Ly tâm",C:"Ma sát",D:"Đẩy"},
+correct:"B"
+},
+
+{
+q:"Người lái giỏi?",
+options:{A:"Nhanh",B:"Nặng",C:"An toàn",D:"Sửa giỏi"},
+correct:"C"
+},
+
+{
+q:"Rò rỉ dầu?",
+options:{A:"Lau",B:"Báo sửa",C:"Cát",D:"Kệ"},
+correct:"B"
+},
+
+{
+q:"Khoảng cách xe nâng?",
+options:{A:"1m",B:"3 thân xe",C:"Gần",D:"100m"},
+correct:"B"
+},
+
+{
+q:"Biển STOP?",
+options:{A:"Dừng",B:"Chậm",C:"Còi",D:"Quay"},
+correct:"A"
+},
+
+{
+q:"Hàng vướng kệ?",
+options:{A:"Giật",B:"Hạ chỉnh",C:"Tăng ga",D:"Leo"},
+correct:"B"
+},
+
+{
+q:"Bảo vệ người lái?",
+options:{A:"Mái che",B:"Kính",C:"Mũ",D:"Càng"},
+correct:"A"
+},
+
+{
+q:"Chở thêm người?",
+options:{A:"Được",B:"Cấm",C:"Sếp",D:"Đối trọng"},
+correct:"B"
+},
+
+{
+q:"Đỗ xe trên dốc?",
+options:{A:"Tắt máy",B:"Chèn bánh",C:"Trôi",D:"Giữ"},
+correct:"B"
+},
+
+{
+q:"Còi lùi?",
+options:{A:"Ngủ",B:"Cảnh báo",C:"Hết xăng",D:"Hỏng"},
+correct:"B"
+},
+
+{
+q:"Hàng lỏng?",
+options:{A:"Nhanh",B:"Tránh phanh gấp",C:"Mở nắp",D:"Không"},
+correct:"B"
+},
+
+{
+q:"Đèn xanh xe điện?",
+options:{A:"Trang trí",B:"Cảnh báo",C:"Chiếu sáng",D:"Pin"},
+correct:"B"
+},
+
+{
+q:"Sling dây cẩu?",
+options:{A:"Có phụ kiện",B:"Cấm",C:"Dây thừng",D:"Dây thép"},
+correct:"A"
+},
+
+{
+q:"Trời mưa?",
+options:{A:"Trơn trượt",B:"Sạch",C:"Mát",D:"Không"},
+correct:"A"
+},
+
+{
+q:"Sau ca làm?",
+options:{A:"Để chìa",B:"Bàn giao",C:"Mang về",D:"Vứt"},
+correct:"B"
+},
+
+{
+q:"Lốp đặc dùng?",
+options:{A:"Bùn",B:"Sàn kho",C:"Cát",D:"Rừng"},
+correct:"B"
+},
+
+{
+q:"Ngã tư kho?",
+options:{A:"Nhanh",B:"Nhường",C:"Bình thường",D:"Tắt máy"},
+correct:"B"
+},
+
+{
+q:"Nâng khi trụ nghiêng trước?",
+options:{A:"Trượt hàng",B:"Chậm",C:"Hỏng xích",D:"Tốn dầu"},
+correct:"A"
+},
+
+{
+q:"Vệ sinh xe?",
+options:{A:"Khi bẩn",B:"Định kỳ",C:"Khi hỏng",D:"Không"},
+correct:"B"
+},
+
+{
+q:"Tự sửa điện?",
+options:{A:"Được",B:"Kỹ thuật",C:"Có kìm",D:"Hết BH"},
+correct:"B"
+},
+
+{
+q:"Xuống dốc không tải?",
+options:{A:"Tiến",B:"Lùi",C:"Chéo",D:"Tắt"},
+correct:"A"
+},
+
+{
+q:"Tốc độ kho?",
+options:{A:"5-10km/h",B:"30",C:"50",D:"Tùy"},
+correct:"A"
+},
+
+{
+q:"Thái độ lái xe nâng?",
+options:{A:"An toàn",B:"Nhanh",C:"Tiết kiệm",D:"Theo sếp"},
+correct:"A"
+}
+
 ];
-
-
-let examQuestions=[]
-let userAnswers=[]
-let current=0
-let timeLeft=1200
-let timer
-
-function startExam(){
-
-let name=document.getElementById("inputName").value.trim()
-let cls=document.getElementById("inputClass").value.trim()
-
-if(!name || !cls){
-
-alert("Nhập đầy đủ thông tin")
-
-return
-}
-
-document.getElementById("studentName").innerText=name
-
-document.getElementById("login").style.display="none"
-document.getElementById("header").classList.remove("hidden")
-document.getElementById("main").classList.remove("hidden")
-
-initExam()
-
-}
-
-function initExam(){
-
-let pool=[...questionBank]
-
-while(pool.length<30){
-
-pool=pool.concat(questionBank)
-
-}
-
-examQuestions=pool.sort(()=>Math.random()-0.5).slice(0,30)
-
-userAnswers=new Array(30).fill(null)
-
-renderGrid()
-
-showQuestion(0)
-
-startTimer()
-
-}
-
-function renderGrid(){
-
-let grid=document.getElementById("grid")
-
-grid.innerHTML=""
-
-for(let i=0;i<30;i++){
-
-let d=document.createElement("div")
-
-d.className="grid-item"
-
-d.innerText=i+1
-
-d.onclick=()=>showQuestion(i)
-
-d.id="grid"+i
-
-grid.appendChild(d)
-
-}
-
-}
-
-function showQuestion(i){
-
-current=i
-
-let q=examQuestions[i]
-
-document.getElementById("questionText").innerText=
-`Câu ${i+1}: ${q.q}`
-
-let options=document.getElementById("options")
-
-options.innerHTML=""
-
-for(let key in q.options){
-
-let div=document.createElement("div")
-
-div.className="option"
-
-if(userAnswers[i]===key){
-
-div.classList.add("selected")
-
-}
-
-div.innerHTML=`<b>${key}.</b> ${q.options[key]}`
-
-div.onclick=()=>selectAnswer(i,key)
-
-options.appendChild(div)
-
-}
-
-document.querySelectorAll(".grid-item")
-.forEach(e=>e.classList.remove("active"))
-
-document.getElementById("grid"+i)
-.classList.add("active")
-
-}
-
-function selectAnswer(qIdx,ans){
-
-userAnswers[qIdx]=ans
-
-document.getElementById("grid"+qIdx)
-.classList.add("answered")
-
-showQuestion(qIdx)
-
-}
-
-function nextQuestion(){
-
-if(current<29){
-
-showQuestion(current+1)
-
-}
-
-}
-
-function prevQuestion(){
-
-if(current>0){
-
-showQuestion(current-1)
-
-}
-
-}
-
-function startTimer(){
-
-timer=setInterval(()=>{
-
-timeLeft--
-
-let m=Math.floor(timeLeft/60)
-
-let s=timeLeft%60
-
-document.getElementById("timer").innerText=
-`${m}:${s<10?"0":""}${s}`
-
-if(timeLeft<=0){
-
-submitExam()
-
-}
-
-},1000)
-
-}
-
-function submitExam(){
-
-clearInterval(timer)
-
-let score=0
-
-examQuestions.forEach((q,i)=>{
-
-if(userAnswers[i]===q.correct){
-
-score++
-
-}
-
-})
-
-alert(`Bạn đúng ${score}/30 câu`)
-
-location.reload()
-
-}
