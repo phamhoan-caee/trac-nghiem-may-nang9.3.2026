@@ -379,13 +379,18 @@
             document.getElementById('mainScrollArea').scrollTop = 0;
         }
 
-        function selectOption(qIdx, option) {
-            userAnswers[qIdx] = option;
-            const dItem = document.getElementById(`questionGrid-item-${qIdx}`);
-            const mItem = document.getElementById(`mobileGrid-item-${qIdx}`);
-            if(dItem) dItem.classList.add('answered');
-            if(mItem) mItem.classList.add('answered');
-            showQuestion(qIdx);
+       function selectOption(qIdx, option) {
+    userAnswers[qIdx] = option;
+    const dItem = document.getElementById(`questionGrid-item-${qIdx}`);
+    const mItem = document.getElementById(`mobileGrid-item-${qIdx}`);
+    if(dItem) dItem.classList.add('answered');
+    if(mItem) mItem.classList.add('answered');
+    
+    // Cập nhật lại giao diện để hiện màu xanh ở câu vừa chọn
+    showQuestion(qIdx); 
+    
+    // TUYỆT ĐỐI KHÔNG để đoạn setTimeout chuyển câu ở đây nữa.
+}
             
             // Auto next after 300ms for better flow
             setTimeout(() => { if(currentIdx < 29) showQuestion(currentIdx + 1); }, 300);
