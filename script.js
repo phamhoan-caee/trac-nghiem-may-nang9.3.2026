@@ -9,7 +9,7 @@ let timerInterval;
 // 2. Hàm bắt đầu thi
 async function startQuiz() {
     const name = document.getElementById('inputName').value.trim();
-    const id = document.getElementById('studentID').value.trim();
+    const id = document.getElementById('inputClass').value.trim();
 
     if (!name || !id) {
         alert("Thầy nhắc học viên nhập đủ Họ tên và Mã số nhé!");
