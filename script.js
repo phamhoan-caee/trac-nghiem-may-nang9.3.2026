@@ -193,7 +193,7 @@ async function submitQuiz() {
 
 // --- GỬI DỮ LIỆU VỀ GOOGLE SHEETS ---
    // Sử dụng link thầy vừa tạo (kết thúc bằng R6Bev)
-   const scriptURL = 'https://script.google.com/macros/s/AKfycbzFDyujjPPP5EezT_-4F4vs9-9B77c_dNmwdWP5TyolKzj39Im9aT0ybRauIt_R6Bev/exec';
+   const scriptURL = 'https://script.google.com/macros/s/AKfycbz6TPIoblCpFsJvnTU0roduWKrRCMGXqF7eUlRTA0xoRrGwWtH_vF3b5gE1b2eALE-liw/exec';
    
    const payload = {
        name: document.getElementById('studentName').value,
