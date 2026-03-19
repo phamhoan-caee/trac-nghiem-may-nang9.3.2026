@@ -1194,7 +1194,7 @@ const questionBank = [
       "Cố chạy nốt",
       "Dừng máy ngay lập tức để kiểm tra dầu vì có nguy cơ cháy máy",
       "Tăng ga mạnh hơn",
-      "Đổ thêm nước vào"
+      "Đổ thêm nước vào" 
     ],
     "answer": "Dừng máy ngay lập tức để kiểm tra dầu vì có nguy cơ cháy máy",
     "explain": "Áp suất dầu thấp nghĩa là các chi tiết động cơ không được bôi trơn, sẽ gây bó máy và hỏng hoàn toàn động cơ trong vài phút."
