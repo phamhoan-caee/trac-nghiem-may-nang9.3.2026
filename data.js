@@ -3,7 +3,7 @@ const questionBank = [
     "id": 1,
     "question": "Khi lên hoặc xuống cabin xe nâng, người lái xe cần thực hiện như thế nào cho đúng?",
     "options": [
-      "Nhảy nhanh lên cabin để tiết kiệm thời gian.",
+      "Nhảy nhanh lên cabin để tiết kiệm thời gian.", 
       "Bám vô lăng để leo lên.",
       "Tay trái nắm tay vịn, tay phải bám vào tựa lưng ghế, bước từng bậc lên xuống.",
       "Đặt chân lên càng nâng để leo lên."
