@@ -171,8 +171,8 @@
     </div>
 
 <script>
-    const BASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR7h1KNottkL2N-DEBjkUVVlXLblXy25_x1UhqML8WQz3AWeWeXFuvkSQUb4Sxv5eaK5T-VJQEWh4wB/pub?output=csv&gid=";
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyoAVdE_SixJLvOCIlnbCyUtFxcjEHb6lut72yGdBpomAJNttm1F87uOFG0w0d4dxbv/exec";
+    const BASE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTD6ZzPWBa0HG24Av-JimMPQg3HTJklLOk89QogsshduBPsvz4xW0Qni82sRJQjuhqxr2E0OLMira03/pub?output=csv&gid=";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxkf6siza_yw1Sf7Ig5LJBepqqNih4oGU18BTkbffFWwMAcsOVSrmmob-Koh2UjVaW-OQ/exec";
     
     let allQuestions = [], selectedQuestions = [], studentAnswers = [];
     let currentQuestionIndex = 0, timeLeft = 1200, timerInterval, isSubmitted = false, cheatCount = 0;
@@ -344,6 +344,7 @@
             else { clearInterval(cdInterval); location.reload(); }
         }, 1000);
     }
+
     // Giám sát rời màn hình
     window.onblur = () => { if(!isSubmitted && selectedQuestions.length > 0) { cheatCount++; document.getElementById('warning-overlay').style.display = 'flex'; document.getElementById('cheat-count-msg').innerText = `Lần vi phạm: ${cheatCount} / 3`; if (cheatCount >= 3) submitQuiz(true); } };
     window.onfocus = () => { if (cheatCount < 3) setTimeout(() => { document.getElementById('warning-overlay').style.display = 'none'; }, 500); };
